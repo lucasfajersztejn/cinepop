@@ -11,15 +11,17 @@ const movieSchema = new Schema(
       type: String,
       required: "backdropPath is required",
     },
-    genreIds: [{
-      type: Number,
-    }],
+    genreIds: [
+      {
+        type: Number,
+      },
+    ],
     idMovie: {
       type: Number,
       required: "idMovie is required",
     },
     originalLanguaje: {
-      type: String
+      type: String,
     },
     originalTitle: {
       type: String,
@@ -53,7 +55,7 @@ const movieSchema = new Schema(
     },
     voteCount: {
       type: Number,
-    }
+    },
   },
   {
     timestamps: true,
