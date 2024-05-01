@@ -3,25 +3,25 @@ const Schema = mongoose.Schema;
 
 const timeSheetSchema = new Schema(
   {
-    idCine: {
+    idCinema: {
       type: Schema.Types.ObjectId,
-      ref: "Cine",
+      ref: "Cinema",
       required: true,
     },
-    idPelicula: {
+    idMovie: {
       type: Schema.Types.ObjectId,
       ref: "Movie",
       required: true,
     },
-    empieza: {
+    dateStart: {
       type: Date,
       required: true,
     },
-    termina: {
+    dateFinish: {
       type: Date,
       required: true,
     },
-    horario: {
+    schedules: {
       type: {
         monday: [String],
         tuesday: [String],

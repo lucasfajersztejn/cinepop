@@ -13,7 +13,7 @@ const movieSchema = new Schema(
     },
     genreIds: [
       {
-        type: Number,
+        type: [Number],
       },
     ],
     idMovie: {
@@ -56,6 +56,9 @@ const movieSchema = new Schema(
     voteCount: {
       type: Number,
     },
+    keyTrailer: {
+      type: String,
+    },
   },
   {
     timestamps: true,
@@ -95,4 +98,17 @@ module.exports = Movie;
   "vote_average": 6.503,
   "vote_count": 486
 }
+
+{
+      "iso_639_1": "en",
+      "iso_3166_1": "US",
+      "name": "Clip",
+      "key": "UJa1zUYegqo",
+      "site": "YouTube",
+      "size": 1080,
+      "type": "Clip",
+      "official": true,
+      "published_at": "2024-02-16T16:31:54.000Z",
+      "id": "65d40e001d356301631e68cb"
+    }
 */

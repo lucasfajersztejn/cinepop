@@ -11,5 +11,5 @@ mongoose
     )
   )
   .catch((error) =>
-    console.error(`An error ocurred trying to conect to the database`, error)
+    console.error(`An error ocurred trying to connect to the database`, error)
   );

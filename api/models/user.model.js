@@ -110,16 +110,3 @@ userSchema.method("checkPassword", function (password) {
 
 const User = mongoose.model("User", userSchema);
 module.exports = User;
-
-/*
-Name (String - require)
-LastName (String - require)
-UserName (String - require - Unique)
-Email (String - require)
-Password (String - require)
-Birthday (Date - require)
-Phone_Number (Number)
-Gender (String - require)
-Avatar (String - require)
-Favorite_Genres (String - require)
-*/

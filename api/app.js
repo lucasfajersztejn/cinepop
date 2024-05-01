@@ -1,7 +1,6 @@
 require("dotenv").config();
 
 const express = require("express");
-const logger = require("morgan");
 //const cors
 
 require("./configs/db.config");
@@ -11,6 +10,8 @@ const app = express()
 // Middlewares
 
 // Routes
+const routes = require("./configs/routes.config");
+app.use(routes);
 
 // Error handlers
 

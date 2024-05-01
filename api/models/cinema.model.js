@@ -1,7 +1,7 @@
 const mongoose = require("mongoose");
 const Schema = mongoose.Schema;
 
-const cineSchema = new Schema(
+const cinemaSchema = new Schema(
   {
     name: {
       type: String,
@@ -22,6 +22,10 @@ const cineSchema = new Schema(
       type: String,
       enum: ["Small", "Medium", "Big"],
       required: "Category is required",
+    },
+    priority: {
+      type: Number,
+      required: "Priority is required",
     },
     avatar: {
       type: String,
@@ -58,6 +62,7 @@ const cineSchema = new Schema(
       transform: (doc, ret) => {
         ret.id = ret._id;
         ret.location = ret.location.coordinates.reverse();
+        delete ret.priority; 
         delete ret._id;
         delete ret.__v;
         return ret;
@@ -66,7 +71,7 @@ const cineSchema = new Schema(
   }
 );
 
-cineSchema.index({ location: "2dsphere" });
+cinemaSchema.index({ location: "2dsphere" });
 
-const Cine = mongoose.model("Cine", cineSchema);
-module.exports = Cine;
+const Cinema = mongoose.model("Cinema", cinemaSchema);
+module.exports = Cinema;
