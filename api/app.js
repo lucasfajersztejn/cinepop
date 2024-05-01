@@ -8,6 +8,7 @@ require("./configs/db.config");
 const app = express()
 
 // Middlewares
+app.use(express.json());
 
 // Routes
 const routes = require("./configs/routes.config");

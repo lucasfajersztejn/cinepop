@@ -7,23 +7,21 @@ const movieSchema = new Schema(
       type: Boolean,
       required: "Adult is required",
     },
-    backdropPath: {
+    backdrop_path: {
       type: String,
       required: "backdropPath is required",
     },
-    genreIds: [
-      {
-        type: [Number],
-      },
-    ],
+    genre_ids: {
+      type: [Number],
+    },
     idMovie: {
       type: Number,
       required: "idMovie is required",
     },
-    originalLanguaje: {
+    original_language: {
       type: String,
     },
-    originalTitle: {
+    original_title: {
       type: String,
       required: "Title is required",
     },
@@ -34,11 +32,11 @@ const movieSchema = new Schema(
     popularity: {
       type: Number,
     },
-    posterPath: {
+    poster_path: {
       type: String,
       required: "PosterPath is required",
     },
-    releaseDate: {
+    release_date: {
       type: String,
       required: "Release date is required",
     },
@@ -49,14 +47,14 @@ const movieSchema = new Schema(
     video: {
       type: Boolean,
     },
-    voteAverage: {
+    vote_average: {
       type: Number,
       required: "Vote average is required",
     },
-    voteCount: {
+    vote_count: {
       type: Number,
     },
-    keyTrailer: {
+    key: {
       type: String,
     },
   },
@@ -86,7 +84,7 @@ module.exports = Movie;
     27,
     53
   ],
-  "id": 1096197,
+  "idMovie": 1096197,
   "original_language": "en",
   "original_title": "No Way Up",
   "overview": "Characters from different backgrounds are thrown together when the plane they're travelling on crashes into the Pacific Ocean. A nightmare fight for survival ensues with the air supply running out and dangers creeping in from all sides.",
@@ -96,7 +94,8 @@ module.exports = Movie;
   "title": "No Way Up",
   "video": false,
   "vote_average": 6.503,
-  "vote_count": 486
+  "vote_count": 486,
+  "key": "UJa1zUYegqo",
 }
 
 {
