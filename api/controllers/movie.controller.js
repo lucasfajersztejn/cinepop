@@ -2,12 +2,8 @@ const mongoose = require("mongoose");
 const Movie = require("../models/movie.model");
 
 module.exports.create = (req, res, next) => {
-  console.debug(req.body);
   Movie.create(req.body)
-    .then((movie) => {
-      console.debug(movie);
-      res.status(201).json(movie);
-    })
+    .then((movie) => res.status(201).json(movie))
     .catch((err) => {
       if (err instanceof mongoose.Error.ValidationError) {
         res.status(400).json(err.errors);
@@ -19,10 +15,7 @@ module.exports.create = (req, res, next) => {
 
 module.exports.list = (req, res, next) => {
   Movie.find()
-    .then((movies) => {
-      console.debug(movies);
-      res.json(movies);
-    })
+    .then((movies) => res.json(movies))
     .catch((err) =>
       console.error("There was an error finding the movies", err)
     );

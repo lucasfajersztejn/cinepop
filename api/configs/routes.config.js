@@ -1,6 +1,7 @@
 const express = require("express");
 const router = express.Router();
 const movies = require("../controllers/movie.controller");
+const cinemas = require("../controllers/cinema.controller");
 
 // EndPoints for Movies
 router.post("/movies/create", movies.create);
@@ -10,11 +11,12 @@ router.patch("/movies/:id", movies.update);
 router.delete("/movies/:id", movies.delete);
 
 // EndPoints for Cinemas
-// router.post("/cinemas/create", cinemas.create);
-// router.get("/cinemas", cinemas.list);
-// router.get("/cinemas/:id", cinemas.detail);
-// router.patch("/cinemas/:id", cinemas.update);
-// router.delete("/cinemas/:id", cinemas.delete);
+router.post("/cinemas/create", cinemas.create);
+router.get("/cinemas", cinemas.list);
+router.get("/cinemas/:id", cinemas.detail);
+router.patch("/cinemas/:id", cinemas.update);
+router.delete("/cinemas/:id", cinemas.delete);
+
 // EndPoints for Timesheets
 
 module.exports = router;
