@@ -71,6 +71,13 @@ const cinemaSchema = new Schema(
   }
 );
 
+cinemaSchema.virtual("timesheets", {
+  ref: "TimeSheet",
+  localField: "_id",
+  foreignField: "idCinema",
+  justOne: false,
+});
+
 cinemaSchema.index({ location: "2dsphere" });
 
 const Cinema = mongoose.model("Cinema", cinemaSchema);

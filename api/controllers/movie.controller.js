@@ -15,6 +15,7 @@ module.exports.create = (req, res, next) => {
 
 module.exports.list = (req, res, next) => {
   Movie.find()
+    .populate("timesheets")
     .then((movies) => res.json(movies))
     .catch((err) =>
       console.error("There was an error finding the movies", err)
@@ -23,6 +24,7 @@ module.exports.list = (req, res, next) => {
 
 module.exports.detail = (req, res, next) => {
   Movie.findById(req.params.id)
+    .populate("timesheets")
     .then((movie) => {
       if (movie) {
         res.json(movie);

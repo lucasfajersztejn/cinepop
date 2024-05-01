@@ -30,6 +30,7 @@ module.exports.list = (req, res, next) => {
   }
 
   Cinema.find()
+    .populate("timesheets")
     .then((cinemas) => res.json(cinemas))
     .catch((err) =>
       console.error("There was an error finding the cinemas", err)
@@ -38,6 +39,7 @@ module.exports.list = (req, res, next) => {
 
 module.exports.detail = (req, res, next) => {
   Cinema.findById(req.params.id)
+    .populate("timesheets")
     .then((cinema) => {
       if (cinema) {
         res.json(cinema);

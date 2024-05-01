@@ -72,6 +72,13 @@ const movieSchema = new Schema(
   }
 );
 
+movieSchema.virtual("timesheets", {
+  ref: "TimeSheet",
+  localField: "_id",
+  foreignField: "idMovie",
+  justOne: false,
+});
+
 const Movie = mongoose.model("Movie", movieSchema);
 module.exports = Movie;
 

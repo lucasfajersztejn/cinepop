@@ -2,6 +2,7 @@ const express = require("express");
 const router = express.Router();
 const movies = require("../controllers/movie.controller");
 const cinemas = require("../controllers/cinema.controller");
+const timesheets = require("../controllers/timesheet.controller");
 
 // EndPoints for Movies
 router.post("/movies/create", movies.create);
@@ -18,14 +19,15 @@ router.patch("/cinemas/:id", cinemas.update);
 router.delete("/cinemas/:id", cinemas.delete);
 
 // EndPoints for Timesheets
+router.post("/timesheets/create", timesheets.create);
+router.patch("/timesheets/:id", timesheets.update);
+router.delete("/timesheets/:id", timesheets.delete);
 
 module.exports = router;
 
 
 /* 
-Post (create) /cinemas/create
-Get (detail Cinemas) /cinemas
-Get (detail Cinemas) /cinemas/id
-Patch (update) [FASE 2] /cinemas/id
-Del (delete) [FASE 2] /cinemas/id
+Post (create) /timesheet/create
+Patch (update) [FASE 2] /timesheet/id
+Del (delete) [FASE 2] /timesheet/id
 */
