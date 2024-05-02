@@ -17,7 +17,6 @@ module.exports.create = (req, res, next) => {
 };
 
 module.exports.login = (req, res, next) => {
-  console.debug(req.body)
   User.findOne({ email: req.body.email })
     .then((user) => {
       if (user) {
@@ -72,7 +71,6 @@ module.exports.update = (req, res, next) => {
 };
 
 module.exports.delete = (req, res, next) => {
-  console.log(req.params.id)
   User.findByIdAndDelete(req.params.id)
     .then((user) => {
       if (user) {
