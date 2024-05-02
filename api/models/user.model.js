@@ -2,6 +2,10 @@ const mongoose = require("mongoose");
 const Schema = mongoose.Schema;
 const bcrypt = require("bcrypt");
 
+const admins = (process.env.ADMIN_EMAILS || "")
+  .split(",")
+  .map((email) => email.trim());
+
 const userSchema = new Schema(
   {
     name: {
@@ -37,31 +41,10 @@ const userSchema = new Schema(
     avatar: {
       type: String,
     },
-    favoritesGenres: {
-      type: [String],
-      enum: [
-        "Action",
-        "Adventure",
-        "Comedy",
-        "Drama",
-        "Horror",
-        "Sci-Fi",
-        "Romance",
-        "Animation",
-        "Fantasy",
-        "Crime",
-        "Mystery",
-        "Thriller",
-        "Documentary",
-        "Musical",
-        "War",
-        "Western",
-        "Historical",
-        "Biography",
-        "Suspense",
-        "Family",
-      ],
-      default: [],
+    role: {
+      type: String,
+      enum: ["admin", "guest"],
+      default: "guest",
     },
     location: {
       type: {
@@ -91,6 +74,10 @@ const userSchema = new Schema(
 );
 
 userSchema.pre("save", function (next) {
+  if (admins.includes(this.email)) {
+    this.role = "admin";
+  }
+
   if (this.isModified("password")) {
     bcrypt
       .hash(this.password, 10)

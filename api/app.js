@@ -1,14 +1,18 @@
 require("dotenv").config();
 
 const express = require("express");
-//const cors
+const logger = require("morgan")
+const cors = require("./middlewares/cors.middleware");
+
 
 require("./configs/db.config");
 
 const app = express()
 
 // Middlewares
+app.use(logger("dev"));
 app.use(express.json());
+app.use(cors);
 
 // Routes
 const routes = require("./configs/routes.config");

@@ -54,7 +54,7 @@ const movieSchema = new Schema(
     vote_count: {
       type: Number,
     },
-    key: {
+    youtube_key: {
       type: String,
     },
   },
