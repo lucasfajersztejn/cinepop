@@ -23,7 +23,7 @@ router.delete("/movies/:id", auth.checkAuth, auth.checkRole("admin"), movies.del
 // EndPoints for Cinemas
 router.post("/cinemas", auth.checkAuth, auth.checkRole("admin"), cinemas.create);
 router.get("/cinemas", cinemas.list);
-router.get("/cinemas/:id", auth.checkAuth, auth.checkRole("admin"), cinemas.detail);
+router.get("/cinemas/:id", cinemas.detail);
 router.patch("/cinemas/:id", auth.checkAuth, auth.checkRole("admin"), cinemas.update);
 router.delete("/cinemas/:id", auth.checkAuth, auth.checkRole("admin"), cinemas.delete);
 
