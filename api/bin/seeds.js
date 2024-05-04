@@ -1,7 +1,27 @@
 require("dotenv").config();
-const mongoose = require("mongoose");
+require("../configs/db.config");
 const axios = require("axios");
+const Movie = require("../models/movie.model");
+const Cinema = require("../models/cinema.model")
 
+const movies = require("../data/movies.json");
+const genreId = require("../data/genreId.json");
+const cinemas = require("../data/cinemas.json")
+
+function replaceGenreIds(movie) {
+  const genreNames = movie.genre_ids.map(id => genreId[id]);
+  return { ...movie, genre_ids: genreNames };
+}
+const moviesWithGenreNames = movies.map(movie => replaceGenreIds(movie));
+
+// Movie.create(moviesWithGenreNames)
+//   .then((movie) => console.debug(`${movie.length} movies created.`))
+//   .catch((error) => console.error(error))
+
+// Cinema.create(cinemas)
+//   .then((cinema) => console.debug(`${cinema.length} movies created.`))
+//   .catch((error) => console.error(error))
+/*
 async function fetchMoviesAndTrailers() {
   // Llamada para obtener las películas en cartelera
   const url = "https://api.themoviedb.org/3/movie/now_playing?language=es-ES&page=3";
@@ -60,3 +80,5 @@ fetchMoviesAndTrailers()
   .catch((error) => {
     console.error("Error al obtener películas con trailers:", error);
   });
+
+*/

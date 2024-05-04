@@ -12,7 +12,7 @@ const movieSchema = new Schema(
       required: "backdropPath is required",
     },
     genre_ids: {
-      type: [Number],
+      type: [String],
     },
     idMovie: {
       type: Number,

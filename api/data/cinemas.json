@@ -9,7 +9,7 @@
     "avatar": "https://offloadmedia.feverup.com/madridsecreto.co/wp-content/uploads/2020/08/20115524/cines-embajadores-1.jpg",
     "bgAvatar": "https://estaticos.esmadrid.com/cdn/farfuture/DBsh7Ss85HeN74ByVy1FNe7_b5oBKvIfdbMGWn_XnDY/mtime:1616682440/sites/default/files/recursosturisticos/infoturistica/cine_embajadores_4.jpg",
     "phoneNumber": 914858798,
-    "adress": "Glorieta Sta. María de la Cabeza, 5, Arganzuela, 28045 Madrid",
+    "address": "Glorieta Sta. María de la Cabeza, 5, Arganzuela, 28045 Madrid",
     "location": {
       "type": "Point",
       "coordinates": [40.402971245325595, -3.6980651000326374]
@@ -25,7 +25,7 @@
     "avatar": "https://s2.abcstatics.com/media/play/2018/07/28/cines-cinesa-kEaC--1248x698@abc.jpg",
     "bgAvatar": "https://www.eventoplus.com/wp-content/uploads/eventoplus/imgsxml/galerias/noticias/7694/big-cinesa-luxe-oasiz-1881.jpg",
     "phoneNumber": 932289600,
-    "adress": "C. Acanto, 2, Arganzuela, 28045 Madrid",
+    "address": "C. Acanto, 2, Arganzuela, 28045 Madrid",
     "location": {
       "type": "Point",
       "coordinates": [40.398172841071506, -3.676879624227769]
@@ -41,7 +41,7 @@
     "avatar": "https://davidspence.es/wp-content/uploads/2021/08/Cine-Dore-Exterior.-Fotografo-David-Spence-1.jpg",
     "bgAvatar": "https://davidspence.es/wp-content/uploads/2021/07/Cine-Dore-Filmoteca-Espanola.-Fotografo-David-Spence-2.jpg",
     "phoneNumber": 913693225,
-    "adress": "C. de Sta. Isabel, 3, Centro, 28012 Madrid",
+    "address": "C. de Sta. Isabel, 3, Centro, 28012 Madrid",
     "location": {
       "type": "Point",
       "coordinates": [40.41244346466298, -3.698975557347784]
@@ -57,7 +57,7 @@
     "avatar": "https://media.timeout.com/images/105766837/image.jpg",
     "bgAvatar": "https://professional.yelmocines.es/wp-content/uploads/2022/05/yelmo-tradicional-07.jpg",
     "phoneNumber": 913693227,
-    "adress": "Calle del Dr Cortezo, 6, Centro, 28012 Madrid",
+    "address": "Calle del Dr Cortezo, 6, Centro, 28012 Madrid",
     "location": {
       "type": "Point",
       "coordinates": [40.41509890876089, -3.7040401283593503]
@@ -73,7 +73,7 @@
     "avatar": "https://estaticos.esmadrid.com/cdn/farfuture/kpFWGS4PWSndM7feVYgwciz6IcoHVc8JkgWgljnSg9g/mtime:1646729582/sites/default/files/styles/content_type_full/public/recursosturisticos/infoturistica/somos2.jpg?itok=jx7-rsrE",
     "bgAvatar": "https://estaticos.esmadrid.com/cdn/farfuture/07pcvPTR3HhyLzVBssMmWIV-1vDk7V29uAZKcf8ulaM/mtime:1646729583/sites/default/files/styles/content_type_full/public/recursosturisticos/infoturistica/53544629_304838020226972_1231450209905541120_o.jpg?itok=zG7DqgZN",
     "phoneNumber": 915225801,
-    "adress": "Pl. del Callao, 3, Centro, 28013 Madrid",
+    "address": "Pl. del Callao, 3, Centro, 28013 Madrid",
     "location": {
       "type": "Point",
       "coordinates": [40.420267890850226, -3.706156023579956]
@@ -89,7 +89,7 @@
     "avatar": "https://hips.hearstapps.com/hmg-prod/images/cibeles-de-cine-2023-649eae60ef3a9.jpg",
     "bgAvatar": "https://guiadelocio.es/madrid/wp-content/uploads/sites/2/2023/06/01_Cibeles-de-Cine-scaled.jpg",
     "phoneNumber": 915225803,
-    "adress": "Plaza Cibeles, 1, Retiro, 28014 Madrid",
+    "address": "Plaza Cibeles, 1, Retiro, 28014 Madrid",
     "location": {
       "type": "Point",
       "coordinates": [40.419024035391345, -3.692122738223191]
@@ -105,7 +105,7 @@
     "avatar": "https://cd1.taquilla.com/data/images/t/0e/cines-palacio-de-la-prensa.jpg",
     "bgAvatar": "https://madridfilmoffice.com/wp-content/uploads/2018/07/Cine-de-la-Prensa-Madrid-Sala-1-900x600.jpg",
     "phoneNumber": 915219900,
-    "adress": "Pl. del Callao, 4, Centro, 28013 Madrid",
+    "address": "Pl. del Callao, 4, Centro, 28013 Madrid",
     "location": {
       "type": "Point",
       "coordinates": [40.42064978554536, -3.7058872082722]
@@ -121,7 +121,7 @@
     "avatar": "https://www.esmadrid.com/sites/default/files/styles/content_type_full/public/recursosturisticos/infoturistica/capitolgaleria-enfused-mg-1683-dxo-2.jpg?itok=VlaJbr67",
     "bgAvatar": "https://madridfilmoffice.com/wp-content/uploads/2018/10/Teatro-cine-capitol_-3-900x600.jpg",
     "phoneNumber": 915222229,
-    "adress": "Gran Vía, 41, Centro, 28013 Madrid",
+    "address": "Gran Vía, 41, Centro, 28013 Madrid",
     "location": {
       "type": "Point",
       "coordinates": [40.42048020212226, -3.7065551585022014]
@@ -137,7 +137,7 @@
     "avatar": "https://venues-pro.s3.eu-south-2.amazonaws.com/MaOCLCZh/TPan4XFM_t4.jpg",
     "bgAvatar": "https://venues-pro.s3.eu-south-2.amazonaws.com/MaOCLCZh/GiFKiteU_o.jpg",
     "phoneNumber": 932289600,
-    "adress": "Estación Príncipe Pío, C. de Mozart, 2, Moncloa - Aravaca, 28008 Madrid",
+    "address": "Estación Príncipe Pío, C. de Mozart, 2, Moncloa - Aravaca, 28008 Madrid",
     "location": {
       "type": "Point",
       "coordinates": [40.42282187308108, -3.7213601077203893]
@@ -153,7 +153,7 @@
     "avatar": "https://www.pillalas.com/static/_s/img/cines/E746B8D4524AAA5B.jpg",
     "bgAvatar": "https://cdn0.salir.com/es/places/3/2/0/cine-renoir-retiro_126023_0_600.jpg",
     "phoneNumber": 913342177,
-    "adress": "C. de Martín de los Heros, 12, Moncloa - Aravaca, 28008 Madrid",
+    "address": "C. de Martín de los Heros, 12, Moncloa - Aravaca, 28008 Madrid",
     "location": {
       "type": "Point",
       "coordinates": [40.424408430020485, -3.7133843120976477]
@@ -169,7 +169,7 @@
     "avatar": "https://www.cinesrenoir.com/static/imagenes/cines/fachadas/349566086E5F21EF.jpg",
     "bgAvatar": "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQFCWYObm6ZS-8jTD4wbzZYg-4tewhLcLzZsZ2Mu1J67w&s",
     "phoneNumber": 913342177,
-    "adress": "C. de la Princesa, 3, Moncloa - Aravaca, 28008 Madrid",
+    "address": "C. de la Princesa, 3, Moncloa - Aravaca, 28008 Madrid",
     "location": {
       "type": "Point",
       "coordinates": [40.42500248057941, -3.7128585828504885]
@@ -185,7 +185,7 @@
     "avatar": "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTf-iivE7Ktqg8XRDKZbmioVkGw_cWOjAFy5nXGSy3FXw&s",
     "bgAvatar": "https://www.rizomafestival.com/wp-content/uploads/2020/10/sedeThumb.png",
     "phoneNumber": 915593836,
-    "adress": "C. de Martín de los Heros, 14, Moncloa - Aravaca, 28008 Madrid",
+    "address": "C. de Martín de los Heros, 14, Moncloa - Aravaca, 28008 Madrid",
     "location": {
       "type": "Point",
       "coordinates": [40.42468565109476, -3.713563132276973]
@@ -201,7 +201,7 @@
     "avatar": "https://www.65ymas.com/uploads/s1/24/21/60/cine-yelmo-luxury-palafox.jpeg",
     "bgAvatar": "https://venues-pro.s3.eu-south-2.amazonaws.com/hBzy18Wc/ucyZIlbb_o.png",
     "phoneNumber": 913693227,
-    "adress": "C. de Luchana, 15, Chamberí, 28010 Madrid",
+    "address": "C. de Luchana, 15, Chamberí, 28010 Madrid",
     "location": {
       "type": "Point",
       "coordinates": [40.43014947856319, -3.700889037699422]
@@ -217,7 +217,7 @@
     "avatar": "https://primerfestivaldecine.com/media/1153/cinepaz.jpg",
     "bgAvatar": "https://aulafilm.com/uploads/cines/62558c9f3c0d8_1477640-592343534172367-851235194-n.jpeg",
     "phoneNumber": 914464566,
-    "adress": "Calle de Fuencarral, 125, Chamberí, 28010 Madrid",
+    "address": "Calle de Fuencarral, 125, Chamberí, 28010 Madrid",
     "location": {
       "type": "Point",
       "coordinates": [40.43089523227561, -3.703402099873925]
@@ -233,7 +233,7 @@
     "avatar": "https://upload.wikimedia.org/wikipedia/commons/e/ec/Cine_Proyecciones_%28Madrid%29_02.jpg",
     "bgAvatar": "https://venues-pro.s3.eu-south-2.amazonaws.com/ba8cb8XQ/hxyuEzUK_t4.jpg",
     "phoneNumber": 932289600,
-    "adress": "Calle de Fuencarral, 136, Chamberí, 28010 Madrid",
+    "address": "Calle de Fuencarral, 136, Chamberí, 28010 Madrid",
     "location": {
       "type": "Point",
       "coordinates": [40.43153621202989, -3.703185200128505]
@@ -249,7 +249,7 @@
     "avatar": "https://guiadelocio.es/madrid/wp-content/uploads/sites/2/2022/11/2021-01-27.jpg",
     "bgAvatar": "https://imagenes.eldebate.com/files/vertical_composte_image/uploads/2022/07/11/62cc6cea6a6f7.jpeg",
     "phoneNumber": 914472920,
-    "adress": "C/ de Magallanes, 1, Chamberí, 28015 Madrid",
+    "address": "C/ de Magallanes, 1, Chamberí, 28015 Madrid",
     "location": {
       "type": "Point",
       "coordinates": [40.432637701015544, -3.7055820349072865]
@@ -265,7 +265,7 @@
     "avatar": "https://www.apropacultura.org/sites/default/files/styles/header_780w/public/equipment/fachada.jpeg?itok=TmmI4HYd",
     "bgAvatar": "https://salaberlanga.com/wp-content/uploads/2023/11/lasala-caracteristicas.jpg",
     "phoneNumber": 910669510,
-    "adress": "C. de Andrés Mellado, 53, Chamberí, 28015 Madrid",
+    "address": "C. de Andrés Mellado, 53, Chamberí, 28015 Madrid",
     "location": {
       "type": "Point",
       "coordinates": [40.43604836811654, -3.714466757533043]
@@ -281,7 +281,7 @@
     "avatar": "https://www.esmadrid.com/sites/default/files/styles/content_type_full/public/recursosturisticos/infoturistica/verdi-madrid.jpg?itok=jCluXxjG",
     "bgAvatar": "https://www.popchild.com/wp-content/uploads/2011/02/LR_Cines_Verdi_Barcelona_08.jpg",
     "phoneNumber": 914473930,
-    "adress": "C. de Bravo Murillo, 28, Chamberí, 28015 Madrid",
+    "address": "C. de Bravo Murillo, 28, Chamberí, 28015 Madrid",
     "location": {
       "type": "Point",
       "coordinates": [40.43674756486025, -3.703979017370298]
@@ -297,7 +297,7 @@
     "avatar": "https://condeduquemorasol.com/wp-content/uploads/2020/03/exterior-noche-RETOQUE-scaled.jpg",
     "bgAvatar": "https://condeduquemorasol.com/wp-content/uploads/2020/06/Captura-de-pantalla-2020-06-28-a-las-18.47.47.png",
     "phoneNumber": 910524380,
-    "adress": "C. de Pradillo, 4, 6, Chamartín, 28002 Madrid",
+    "address": "C. de Pradillo, 4, 6, Chamartín, 28002 Madrid",
     "location": {
       "type": "Point",
       "coordinates": [40.44840400609626, -3.67574420041398]
@@ -313,7 +313,7 @@
     "avatar": "https://lavaguadacines.es/assets/images/vaguada_3.jpg",
     "bgAvatar": "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSWns-SqC8IZzkIghJLGvokaSKWxtAvPjgQ47kWviUGR77X0MYflpIqUgoy0i1ZUAjsfh8&usqp=CAU",
     "phoneNumber": 917306166,
-    "adress": "C. de Santiago de Compostela, S/N, Fuencarral-El Pardo, 28029 Madrid",
+    "address": "C. de Santiago de Compostela, S/N, Fuencarral-El Pardo, 28029 Madrid",
     "location": {
       "type": "Point",
       "coordinates": [40.480070034474004, -3.707576638765359]

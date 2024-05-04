@@ -14,7 +14,7 @@ router.patch("/admin/profile/:id", auth.checkAuth, auth.checkRole("admin") , use
 router.delete("/admin/profile/:id", auth.checkAuth, auth.checkRole("admin"), user.delete);
 
 // EndPoints for Movies
-router.post("/movies", auth.checkAuth, auth.checkRole("admin"), movies.create);
+router.post("/movies", movies.create);
 router.get("/movies", movies.list);
 router.get("/movies/:id", movies.detail);
 router.patch("/movies/:id", auth.checkAuth, auth.checkRole("admin"), movies.update);
