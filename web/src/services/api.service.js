@@ -6,7 +6,7 @@ export function getMovies() {
   return http.get("/movies");
 }
 
-export function getMovieDetail(id) {
+export function getMovieDetails(id) {
   return http.get(`/movies/${id}`);
 }
 
