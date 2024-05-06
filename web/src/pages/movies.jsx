@@ -1,8 +1,9 @@
+import MovieList from "../components/movies/movies-list/movie-list";
 
 function Movies() {
   return (
-    <div className="mt-40 lg:mt-44 xl:mt-48 m-10">Movies</div>
-  )
+    <MovieList />
+  );
 }
 
 export default Movies;
