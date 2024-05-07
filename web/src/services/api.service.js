@@ -14,6 +14,6 @@ export function getCinemas() {
   return http.get("/cinemas");
 }
 
-export function getCinemasDetail(id) {
+export function getCinemasDetails(id) {
   return http.get(`/cinemas/${id}`);
 }
