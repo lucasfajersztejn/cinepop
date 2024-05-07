@@ -10,8 +10,8 @@ export function getMovieDetails(id) {
   return http.get(`/movies/${id}`);
 }
 
-export function getCinemas(params) {
-  return http.get("/cinemas", { params });
+export function getCinemas() {
+  return http.get("/cinemas");
 }
 
 export function getCinemasDetail(id) {

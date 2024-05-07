@@ -13,7 +13,7 @@ function Navbar({ onDarkMode, darkMode }) {
 
   return (
 
-      <nav className="dark:bg-teal-950 container px-2 lg:max-w-[1114px] flex flex-wrap items-center justify-between mx-auto py-4 ">
+      <nav className="dark:bg-teal-950 container px-2 lg:max-w-[75%] flex flex-wrap items-center justify-between lg:justify-around mx-auto py-4 ">
         <Link to="/">
           <img src={icon} alt="icon" className="h-20 ms-2 lg:h-24 xl:h-28"/>
         </Link>
