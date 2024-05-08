@@ -18,7 +18,7 @@ function App() {
   }
 
   return (
-    <main className={ darkMode ? 'dark' : '' }>
+    <main className={`${darkMode ? 'dark' : '' }`}>
       <header className="backdrop-blur-md bg-dark-200/30 fixed w-full z-20 top-0 left-0">
         <Navbar onDarkMode={handleDarkMode} darkMode={darkMode} />
       </header>
