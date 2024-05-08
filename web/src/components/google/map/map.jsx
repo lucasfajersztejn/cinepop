@@ -18,8 +18,8 @@ function Map({ className, center, markers, description, image }) {
         map: googleMap,
         title: markers.name,
         icon: {
-          url: movieIcon,
-          scaledSize: new window.google.maps.Size(50, 50), // Tamaño personalizado del icono
+          url: "https://maps.google.com/mapfiles/kml/pal2/icon30.png",
+          scaledSize: new window.google.maps.Size(40, 40), // Tamaño personalizado del icono
         },
       });
 
@@ -30,16 +30,15 @@ function Map({ className, center, markers, description, image }) {
           content: `
           <div style="display: flex; flex-direction: column; align-items: center;">
             <p style="margin: 10px 0px;">${description}</p>  
-            <img src="${image}" alt="Image" style="width: 100%; height: auto;">
+            <img src="${image}" alt="Image" style="width: 100%; height: 100%; object-fit: cover;">
             
           </div>`,        
         });
 
         infoWindowRef.current = infoWindow;
 
-        infoWindow.open(googleMap, marker); // Abre la ventana de información automáticamente
+        infoWindow.open(googleMap, marker);
 
-        // Cierra la ventana de información si se hace clic fuera de ella
         googleMap.addListener("click", () => {
           infoWindow.close();
         });

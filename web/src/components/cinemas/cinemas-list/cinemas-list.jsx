@@ -42,7 +42,7 @@ function CinemasList() {
                     lat: parseFloat(cinema.location[1]),
                     lng: parseFloat(cinema.location[0]),
                   }}
-                  markers={{ 
+                  markers={{  
                     name: cinema.name, 
                     lat: parseFloat(cinema.location[1]), 
                     lng: parseFloat(cinema.location[0]) 

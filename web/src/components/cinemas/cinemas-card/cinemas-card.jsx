@@ -11,7 +11,6 @@ function CinemasCard({ name, movieTheaters, description, avatar, id }) {
         <div className="p-6">
           <h3 className="font-bold text-lg ">{name}</h3>
           <p className="line-clamp-3 mt-4">{description}</p>
-          <p className="line-clamp-3 mt-4">Salas: {movieTheaters}</p>
         </div>
       </Link>   
     </>

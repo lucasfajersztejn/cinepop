@@ -22,9 +22,9 @@ function CinemaDetail() {
   }, [id]);
 
   return (
-    <div className="mt-40 lg:mt-44 xl:mt-48 m-10">
+    <section className="mt-40 lg:mt-44 xl:mt-48 mx-[5%]">
       <CinemaDetails {...cinema}/>
-    </div>
+    </section>
   )
 }
 
