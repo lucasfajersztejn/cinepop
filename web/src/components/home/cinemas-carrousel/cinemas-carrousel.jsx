@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 import { Carousel } from "react-responsive-carousel";
 import { getCinemas } from "../../../services/api.service";
+import { Link } from "react-router-dom";
 
 
 function CinemasCarrousel() {
@@ -21,7 +22,7 @@ function CinemasCarrousel() {
   return (
     <div className="flex flex-col justify-center items-center">
       <Carousel
-        className="my-3 flex justify-center"
+        className="my-3 flex justify-center max-h-[200px] md:min-h-[600px]"
         autoPlay={true}
         infiniteLoop={true}
         showIndicators={false}
@@ -29,15 +30,17 @@ function CinemasCarrousel() {
         showStatus={false}
       >
         {cinemas.map((cinema) => (
-          <div>
-            <img
-              className="rounded-3xl shadow-lg min-h-[600px] w-full md:object-cover object-contain z-20"
-              src={cinema.avatar}
-              alt={`Photo of a Movie theater`}
-            />
-        
-            <h2>{cinema.name}</h2>
-          </div>
+          
+            <div className="rounded-3xl">
+              <img
+                className="rounded-3xl max-h-[200px] md:min-h-[600px] w-full object-contain z-20"
+                src={cinema.avatar}
+                alt={`Photo of a Movie theater`}
+              />
+
+              <h2>{cinema.name}</h2>
+              <Link to={`/cinemas/${cinema.id}`} className="mt-48">Ver Cine</Link>
+            </div>
         ))}
       </Carousel>
     </div>
