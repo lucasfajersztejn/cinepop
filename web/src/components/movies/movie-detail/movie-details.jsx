@@ -7,12 +7,15 @@ import { Carousel } from "react-responsive-carousel";
 function MovieDetails({ movie }) {
   return (
     <>
-      <section className="">
+      <section className="relative">
+      <div className="absolute h-[15%]  md:h-[30%] lg:h-[40%] 2xl:h-[50%] max-h-[500px] lg:max-h-[600px] 2xl:max-h-[1800px] w-full origin-center overflow-hidden ">
         <img
-          className="w-full h-auto"
+          className="relative w-full h-full object-cover -skew-y-[2.2deg] origin-center top-[-10px] md:top-[-30px] lg:top-[-50px] 2xl:top-[-80px]"
           src={`https://image.tmdb.org/t/p/original/${movie.backdrop_path}`}
           alt="background image"
         />
+      </div>
+      
 
         <ul className="flex gap-1 flex-wrap text-sm mt-4">
           {movie.genre_ids.map((genre) => (
@@ -24,7 +27,7 @@ function MovieDetails({ movie }) {
             </li>
           ))}
         </ul>
-        <div className="relative image_youtube_section w-48">
+        <div className="relative image_youtube_section w-48 mt-48">
           <img
             className="w-full"
             src={`https://image.tmdb.org/t/p/original/${movie.poster_path}`}
