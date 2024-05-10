@@ -9,6 +9,7 @@ function Home() {
   return (
     <div className="mt-40 lg:mt-44 xl:mt-48 mx-[5%] flex flex-col items-center">
       <MoviesCarrousel />
+
       <CinemasCarrousel />
     </div>
   )

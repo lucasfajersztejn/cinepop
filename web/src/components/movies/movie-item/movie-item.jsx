@@ -3,22 +3,22 @@ import { Link } from "react-router-dom";
 function MovieItem({ movie }) {
   return (
     <>
-      <Link className="relative dark:bg-red-950  w-full rounded-3xl min-h-[340px] md:col-span-2 p-1 group overflow-hidden" to={`/movies/${movie.id}`}>
-        <figure className="w-full rounded-3xl h-2/3 overflow-hidden">
-          <img className=" w-full h-full sm:min-h-[400px]  md:min-h-[450px] lg:min-h-[450px] object-cover group-hover:scale-105 group-hover:brightness-110 transition-all duration-300" src={`https://image.tmdb.org/t/p/original/${movie.poster_path}`} alt="movie poster" loading="lazy" />
+      <Link className="relative  w-full rounded-3xl min-h-[340px] md:col-span-2 p-1 group overflow-hidden" to={`/movies/${movie.id}`}>
+        <figure className=" w-full rounded-3xl overflow-hidden">
+          <img className=" w-full h-full min-h-[400px]  md:min-h-[450px] lg:min-h-[450px] xl:min-h-[523px] 2xl:min-h-[712px] object-cover group-hover:scale-105 group-hover:brightness-110 transition-all duration-300" src={`https://image.tmdb.org/t/p/original/${movie.poster_path}`} alt="movie poster" loading="lazy" />
         </figure>
         
-        <div className="p-6">
+        <div className="p-6 rounded-3xl bg-red-900 shadow-lg border-t border-dashed text-white hover:dark:bg-red-900/50 hover:rotate-12 hover:mt-4 hover:me-4 hover:xl:mt-3">
           <h3 className="font-bold text-lg ">{movie.original_title}</h3>
           <p className="line-clamp-3 mt-4">{movie.overview}</p>
           <ul className="flex gap-1 flex-wrap text-sm mt-4">
             {movie.genre_ids.map((genre, index) => (
-              <li key={index} className="rounded-full px-2 bg-gray-300 hover:bg-slate-400">{genre}</li>
+              <li key={index} className="rounded-full px-2 text-white bg-red-600/80 hover:bg-red-700/50">{genre}</li>
             ))}
           </ul>
         </div>
 
-        <span className="absolute bottom-[30%] left-2 backdrop-blur-md bg-teal-600/50 py-1 px-2 rounded-full z-10 text-sm font-semibold text-white ">
+        <span className="absolute top-[4%] left-[90%]  backdrop-blur-md bg-red-600/50 py-1 px-2 rounded-full z-10 text-sm font-semibold text-white ">
           {movie.certification? "+"+movie.certification : '+12'}
         </span>
       </Link>   

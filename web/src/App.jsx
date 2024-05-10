@@ -18,7 +18,7 @@ function App() {
   }
 
   return (
-    <main className={`${darkMode ? 'dark' : '' } mx-[10%] ${darkMode ? "bg-gradient-to-t from-black via-red-900 via-red-500 via-red-300 to-red-100" : "bg-stone-400 shadow-xl"} rounded-xl`}>
+    <main className={`${darkMode ? 'dark' : '' } mx-[10%] ${darkMode ? "bg-gradient-to-t from-black to-gray-700" : "bg-gradient-to-t from-black via-red-500  to-red-100"} rounded-xl`}>
       <header className="backdrop-blur-md bg-dark-200/30 fixed w-full z-20 top-0 left-0">
         <Navbar onDarkMode={handleDarkMode} darkMode={darkMode} />
       </header>

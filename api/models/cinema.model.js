@@ -62,7 +62,6 @@ const cinemaSchema = new Schema(
       transform: (doc, ret) => {
         ret.id = ret._id;
         ret.location = ret.location.coordinates.reverse();
-        delete ret.priority; 
         delete ret._id;
         delete ret.__v;
         return ret;

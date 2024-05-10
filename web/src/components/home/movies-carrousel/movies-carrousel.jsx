@@ -57,8 +57,8 @@ function MoviesCarrousel() {
               <hr className="mb-1"/>
               <ul className="flex flex-col items-center sm:flex-row gap-0 sm:gap-5 uppercase text-white text-base font-semibold">
                 <p className="">Duración: {movie.runTime} mins</p>
-                {movie.genre_ids.map((genre) => (
-                  <li className="">{genre}</li>
+                {movie.genre_ids.map((genre, index) => (
+                  <li className="" key={index}>{genre}</li>
                 ))}
               </ul>
               <hr className="mt-1"/>
@@ -66,7 +66,7 @@ function MoviesCarrousel() {
           </div>
           
 
-          <div className="uppercase w-full border-t border-dashed border-separate sm:border-l sm:border-t-0 sm:w-1/2 lg:h-[455px] rounded-b-3xl sm:rounded-e-3xl sm:rounded-bl-none md:w-[25%] lg:w-[30%] gap-10 lg:gap-8 xl:gap-10 flex flex-col items-center lg:justify-center text-sm p-4 bg-slate-700 text-white">
+          <div className="uppercase w-full border-t border-dashed border-separate sm:border-l sm:border-t-0 sm:w-1/2 lg:h-[455px] rounded-b-3xl sm:rounded-e-3xl sm:rounded-bl-none md:w-[25%] lg:w-[30%] gap-10 lg:gap-4 xl:gap-10 flex flex-col items-center lg:justify-center text-sm p-4 bg-slate-700 text-white">
             <p className="text-xl text-center"><box-icon name='camera-movie' color='#ffffff' ></box-icon> <u className="font-semibold">Director :</u> {movie.director.name}</p>
             <ul className="text-lg"><box-icon name='star' color="#ffffff"></box-icon> <u className=" text-xl font-semibold">Artistas :</u>
               <li>{movie.cast[0].name}</li>
@@ -74,7 +74,9 @@ function MoviesCarrousel() {
               <li>{movie.cast[2].name}...</li>
             </ul>
             <p className="text-xl"><box-icon name='group' color="#ffffff"></box-icon> <u className="font-semibold">Clasificación :</u> +{movie.certification !== "" ? movie.certification : "12"}</p>
-            <Link className=" bg-red-500 shadow-lg rounded-md text-center pt-2 lg:w-1/2 lg:h-8 hover:bg-red-400 hover:text-black hover:font-bold" to={`/movies/${movie.id}`}>MÁS INFORMACIÓN</Link>
+            <div className="bg-red-500 shadow-lg rounded-md text-center p-2 hover:bg-red-400 hover:text-black hover:font-bold">
+              <Link className=" " to={`/movies/${movie.id}`}>MÁS INFORMACIÓN</Link>
+            </div>
           </div>
 
              
