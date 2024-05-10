@@ -31,6 +31,10 @@ function MoviesCarrousel() {
     setVisibleMovies(prev => prev + 5);
   }
 
+  const handleLessMovies = () => {
+    setVisibleMovies(prev => prev - 5);
+  }
+
   return (
     <div className="">
       
@@ -63,14 +67,14 @@ function MoviesCarrousel() {
           
 
           <div className="uppercase w-full border-t border-dashed border-separate sm:border-l sm:border-t-0 sm:w-1/2 lg:h-[455px] rounded-b-3xl sm:rounded-e-3xl sm:rounded-bl-none md:w-[25%] lg:w-[30%] gap-10 lg:gap-8 xl:gap-10 flex flex-col items-center lg:justify-center text-sm p-4 bg-slate-700 text-white">
-            <p className="text-xl "><box-icon name='camera-movie' color='#ffffff' ></box-icon> <u className="font-semibold">Director:</u> {movie.director.name}</p>
-            <ul className="text-lg"><box-icon name='star' color="#ffffff"></box-icon> <u className=" text-xl font-semibold">Actors :</u>
+            <p className="text-xl text-center"><box-icon name='camera-movie' color='#ffffff' ></box-icon> <u className="font-semibold">Director :</u> {movie.director.name}</p>
+            <ul className="text-lg"><box-icon name='star' color="#ffffff"></box-icon> <u className=" text-xl font-semibold">Artistas :</u>
               <li>{movie.cast[0].name}</li>
               <li>{movie.cast[1].name}</li>
               <li>{movie.cast[2].name}...</li>
             </ul>
-            <p className="text-xl"><box-icon name='group' color="#ffffff"></box-icon> <u className="font-semibold">Clasificación:</u> +{movie.certification !== "" ? movie.certification : "12"}</p>
-            <Link className=" bg-red-500 shadow-lg rounded-md text-center pt-2 lg:w-1/2 lg:h-8 hover:bg-red-300 hover:text-black hover:font-semibold" to={`/movies/${movie.id}`}>MÁS INFORMACIÓN</Link>
+            <p className="text-xl"><box-icon name='group' color="#ffffff"></box-icon> <u className="font-semibold">Clasificación :</u> +{movie.certification !== "" ? movie.certification : "12"}</p>
+            <Link className=" bg-red-500 shadow-lg rounded-md text-center pt-2 lg:w-1/2 lg:h-8 hover:bg-red-400 hover:text-black hover:font-bold" to={`/movies/${movie.id}`}>MÁS INFORMACIÓN</Link>
           </div>
 
              
@@ -78,33 +82,15 @@ function MoviesCarrousel() {
           
         ))}
 
+        <div className="flex justify-center gap-5 sm:gap-0">
           {visibleMovies <= moviesFiltered.length && (
-            <button className="bg-red-500 shadow-lg text-white px-4 py-2 mx-[25%] w-[50%] rounded-md mt-4" onClick={handleLoadMoreMovies}>MÁS PELÍCULAS</button>
-          )}            
+            <button className="bg-red-500 shadow-lg text-white px-4 py-2 sm:mx-20 w-[50%] rounded-md mt-4 hover:bg-red-400 hover:text-black hover:font-bold" onClick={handleLoadMoreMovies}>MÁS PELÍCULAS</button>
+          )}
+          {visibleMovies > 5 && (
+            <button className="bg-red-500 shadow-lg text-white px-4 py-2 sm:mx-20 w-[50%] rounded-md mt-4 hover:bg-red-400 hover:text-black hover:font-bold" onClick={handleLessMovies}>MENOS PELÍCULAS</button>
+          )} 
+        </div>         
       
-      
-      
-      {/* <Carousel
-        className="my-3 flex flex-col justify-center items-center"
-        autoPlay={true}
-        infiniteLoop={true}
-        showIndicators={false}
-        showThumbs={false}
-        showStatus={false}
-      >
-        {moviesFiltered.map((movie) => (
-          <div key={movie.id} className="flex flex-col rounded-3xl">
-            <img
-              className="rounded-3xl shadow-lg"
-              src={`https://image.tmdb.org/t/p/original/${movie.poster_path}`}
-              alt={`poster of ${movie.title}`}
-            />
-
-            <span className="text-lg">{movie.title}</span>
-          </div>
-        ))}
-        
-      </Carousel> */}
     </div>
   )
 }
