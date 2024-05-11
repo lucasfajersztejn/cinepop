@@ -22,7 +22,6 @@ function CinemasCarrousel() {
 
   const filterCinemas = cinemas.filter((cinema) => cinema.priority === 1);
   const filterLocations = cinemas.map(cinema => cinema.location);
-  console.log(filterLocations)
   
   return (
     <div className="flex flex-col justify-center items-center mt-4">

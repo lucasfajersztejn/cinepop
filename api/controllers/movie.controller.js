@@ -16,7 +16,16 @@ module.exports.create = (req, res, next) => {
 module.exports.list = (req, res, next) => {
   Movie.find()
     .populate("timesheets")
-    .then((movies) => res.json(movies))
+    .then((movies) => {
+      const moviesJson = movies.map(movie => {
+        const movieJson = movie.toJSON();
+        movieJson.timesheets = movie.timesheets;
+        return movieJson;
+      });
+
+      res.json(moviesJson);
+      
+    })
     .catch((err) =>
       console.error("There was an error finding the movies", err)
     );
@@ -27,7 +36,9 @@ module.exports.detail = (req, res, next) => {
     .populate("timesheets")
     .then((movie) => {
       if (movie) {
-        res.json(movie);
+        const movieJson = movie.toJSON();
+        movieJson.timesheets = movie.timesheets;
+        res.json(movieJson);
       } else {
         res.status(404).json({ message: "Movie not found" });
       }
