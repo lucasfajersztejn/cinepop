@@ -21,20 +21,31 @@ function CinemasCarrousel() {
   }, []);
 
   const filterCinemas = cinemas.filter((cinema) => cinema.priority === 1);
+  const filterLocations = cinemas.map(cinema => cinema.location);
+  console.log(filterLocations)
   
   return (
-    <div className="flex flex-col justify-center items-center">
+    <div className="flex flex-col justify-center items-center mt-4">
 
       <div className="">
-      {/* <Map
-        {filterCinemas.map((cinema, index) => (
-          
-        ))}
-        /> */}
+      {/* {cinemas.length && <Map
+        className={"rounded-xl shadow-lg"}
+        center={{
+              lat: parseFloat(cinemas[0].location[1]),
+              lng: parseFloat(cinemas[0].location[0]),
+            }}
+        markers={{  
+          name: cinemas[0].name, 
+          lat: parseFloat(cinemas[0].location[1]), 
+          lng: parseFloat(cinemas[0].location[0]) 
+        }}
+        description={cinemas[0].address}
+        image={cinemas[0].bgAvatar}
+        />} */}
       </div>
 
       <div>
-        <Link to={`/cinemas`}>VER MÁS CINES</Link>
+        <Link className="text-white bg-red-500 hover:bg-red-400 hover:text-black hover:font-semibold rounded-md p-2 mt-5" to={`/cinemas`}>VER MÁS CINES</Link>
       </div>
       
 

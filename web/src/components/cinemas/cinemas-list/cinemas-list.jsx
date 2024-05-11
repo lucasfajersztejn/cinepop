@@ -24,20 +24,18 @@ function CinemasList() {
     fetchCinemas();
   }, []);
 
-
-
   return (
     <section>
       {isLoading ? (
         <img src={movieLoader} alt="Loader movie"/>
       ) : (
         cinemas.map((cinema, index) => (
-          <div className="mt-28 md:mt-40 lg:mt-44 xl:mt-48 mx-[10%]" key={cinema.id}>
-            <div className={ index % 2 === 0 ? "md:flex" : "md:flex md:flex-row-reverse" }>
+          <div className="mt-2 lg:mt-5 mx-[10%] " key={cinema.id}>
+            <div className={ index % 2 === 0 ? "md:flex gap-4 mt-2" : "mt-2 md:flex md:flex-row-reverse gap-4" }>
               <CinemasCard {...cinema} id={cinema.id} />
               <Map
                   key={index}
-                  className={"m-4 rounded-xl shadow-lg"}
+                  className="mt-2 rounded-xl shadow-lg"
                   center={{
                     lat: parseFloat(cinema.location[1]),
                     lng: parseFloat(cinema.location[0]),

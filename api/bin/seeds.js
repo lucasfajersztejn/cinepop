@@ -3,6 +3,7 @@ require("../configs/db.config");
 const axios = require("axios");
 const Movie = require("../models/movie.model");
 const Cinema = require("../models/cinema.model");
+const TimeSheet = require("../models/timesheet.model");
 
 const movies = require("../data/movies.json");
 const genreId = require("../data/genreId.json");
@@ -23,136 +24,201 @@ const cinemas = require("../data/cinemas.json");
 
 // const moviesWithGenreNames = movies.map((movie) => replaceGenreIds(movie));
 
-async function fetchMoviesAndTrailers() {
-  const url =
-    "https://api.themoviedb.org/3/movie/now_playing?language=es-ES&page=3";
-  const options = {
-    headers: {
-      accept: "application/json",
-      Authorization: `Bearer ${process.env.TMDB_TOKEN}`,
-    },
-  };
 
+async function loadMoviesAndCinemas() {
   try {
-    const response = await axios.get(url, options);
-    const data = response.data;
-    const moviesJson = data.results;
+    // Obtener todas las películas
+    const movies = await Movie.find();
 
-    const moviesWithTrailers = [];
+    // Obtener todos los cines ordenados por prioridad
+    const cinemas = await Cinema.find().sort({ priority: 1 });
 
-    for (const movie of moviesJson) {
-      const videoUrl = `https://api.themoviedb.org/3/movie/${movie.id}/videos`;
-      const castUrl = `https://api.themoviedb.org/3/movie/${movie.id}/credits`;
-      const movieDetailUrl = `https://api.themoviedb.org/3/movie/${movie.id}`;
-      const certification = `https://api.themoviedb.org/3/movie/${movie.id}/release_dates`;
+    // Inicializar un objeto para almacenar el número de películas cargadas por cada cine
+    const loadedMoviesCount = {};
 
-      const [
-        videoResponse,
-        castResponse,
-        movieDetailResponse,
-        certificationsResponse,
-      ] = await Promise.all([
-        axios.get(videoUrl, options),
-        axios.get(castUrl, options),
-        axios.get(movieDetailUrl, options),
-        axios.get(certification, options),
-      ]);
+    // Recorrer los cines
+    for (const cinema of cinemas) {
+      // Obtener el número de salas de cine de este cine
+      const movieTheaters = cinema.movieTheaters;
 
-      const videoData = videoResponse.data;
-      const castData = castResponse.data;
-      const movieDetailData = movieDetailResponse.data;
-      const movieCertifications = certificationsResponse.data;
+      // Calcular cuántas películas cargar para este cine según su prioridad
+      const moviesToLoad = Math.floor((movieTheaters * cinema.priority) / 10);
 
-      const trailers = videoData.results.filter(
-        (video) => video.type === "Trailer"
+      // Obtener las hojas de tiempo más recientes para este cine
+      const timeSheets = await TimeSheet.find({ idCinema: cinema._id })
+        .sort({ dateStart: -1 })
+        .limit(moviesToLoad);
+
+      // Extraer los IDs de películas de las hojas de tiempo
+      const movieIds = timeSheets.map((timeSheet) => timeSheet.idMovie);
+
+      // Filtrar las películas que corresponden a estos IDs
+      const loadedMovies = movies.filter((movie) =>
+        movieIds.includes(movie._id.toString())
       );
 
-      const genreNames = movie.genre_ids.map((id) => genreId[id]);
+      // Almacenar el número de películas cargadas para este cine
+      loadedMoviesCount[cinema._id.toString()] = loadedMovies.length;
 
-      const simplifiedCastData = castData.cast.map((cast) => ({
-        name: cast.name,
-        original_name: cast.original_name,
-        character: cast.character,
-        profile_path: cast.profile_path,
-      }));
+      // Hacer algo con las películas cargadas para este cine, por ejemplo, imprimir sus títulos
+      console.log(`Cinema: ${cinema.name}`);
+      loadedMovies.forEach((movie) => {
 
-      const directorFilter = castData.crew.find(
-        (cast) => cast.job === "Director"
-      );
-
-      const directorInfo = directorFilter
-        ? {
-            name: directorFilter.name,
-            original_name: directorFilter.original_name,
-            profile_path: directorFilter.profile_path,
-            job: directorFilter.job,
-          }
-        : null;
-
-      const movieCertificationResult = movieCertifications.results.filter(
-        (certification) => certification.iso_3166_1 === "ES"
-      );
-      //console.log(movieCertificationResult[0].release_dates[0].certification);
-      let movieCertified;
-      if (movieCertificationResult.length > 0) {
-        
-          if (movieCertificationResult[0].release_dates[0].certification !== "") {
-            movieCertified = movieCertificationResult[0].release_dates[0].certification
-          } else {
-            movieCertified = "";
-          }
-      } else {
-        movieCertified = "";
-      }
-
-      if (movie.overview === "") {
-        movie.overview = "-";
-      }
-
-      if (trailers.length > 0) {
-        const movieWithTrailer = {
-          adult: movie.adult,
-          backdrop_path: movie.backdrop_path,
-          genre_ids: genreNames,
-          idMovie: movie.id,
-          original_language: movie.original_language,
-          original_title: movie.original_title,
-          overview: movie.overview,
-          popularity: movie.popularity,
-          poster_path: movie.poster_path,
-          release_date: movie.release_date,
-          title: movie.title,
-          video: movie.video,
-          vote_average: movie.vote_average,
-          vote_count: movie.vote_count,
-          youtube_key: trailers[0].key,
-          cast: simplifiedCastData,
-          director: directorInfo,
-          runTime: movieDetailData.runtime,
-          certification: movieCertified,
-        };
-
-        moviesWithTrailers.push(movieWithTrailer);
-      }
+      });
     }
 
-    return moviesWithTrailers;
+    // Hacer algo con el objeto loadedMoviesCount, por ejemplo, imprimir el número de películas cargadas por cada cine
+    console.log("Movies loaded per cinema:");
+    Object.keys(loadedMoviesCount).forEach((cinemaId) => {
+      console.log(`${cinemaId}: ${loadedMoviesCount[cinemaId]}`);
+    });
   } catch (error) {
-    console.error("Error al obtener películas y trailers:", error);
-    return [];
+    console.error("Error:", error);
   }
 }
 
-fetchMoviesAndTrailers()
-  .then((moviesWithTrailers) => {
-    return Movie.create(moviesWithTrailers);
-  })
-  .then((movies) => {
-    console.debug(`${movies.length} movies created.`);
-  })
-  .catch((error) => {
-    console.error(
-      "Error fetching movies and trailers or charging the database:",
-      error
-    );
-  });
+// Ejecutar la función
+loadMoviesAndCinemas();
+
+
+
+
+
+
+
+
+// To request the movies from the API, change the genre ids to the genres and load everything in the database 
+
+// async function fetchMoviesAndTrailers() {
+//   const url =
+//     "https://api.themoviedb.org/3/movie/now_playing?language=es-ES&page=3";
+//   const options = {
+//     headers: {
+//       accept: "application/json",
+//       Authorization: `Bearer ${process.env.TMDB_TOKEN}`,
+//     },
+//   };
+
+//   try {
+//     const response = await axios.get(url, options);
+//     const data = response.data;
+//     const moviesJson = data.results;
+
+//     const moviesWithTrailers = [];
+
+//     for (const movie of moviesJson) {
+//       const videoUrl = `https://api.themoviedb.org/3/movie/${movie.id}/videos`;
+//       const castUrl = `https://api.themoviedb.org/3/movie/${movie.id}/credits`;
+//       const movieDetailUrl = `https://api.themoviedb.org/3/movie/${movie.id}`;
+//       const certification = `https://api.themoviedb.org/3/movie/${movie.id}/release_dates`;
+
+//       const [
+//         videoResponse,
+//         castResponse,
+//         movieDetailResponse,
+//         certificationsResponse,
+//       ] = await Promise.all([
+//         axios.get(videoUrl, options),
+//         axios.get(castUrl, options),
+//         axios.get(movieDetailUrl, options),
+//         axios.get(certification, options),
+//       ]);
+
+//       const videoData = videoResponse.data;
+//       const castData = castResponse.data;
+//       const movieDetailData = movieDetailResponse.data;
+//       const movieCertifications = certificationsResponse.data;
+
+//       const trailers = videoData.results.filter(
+//         (video) => video.type === "Trailer"
+//       );
+
+//       const genreNames = movie.genre_ids.map((id) => genreId[id]);
+
+//       const simplifiedCastData = castData.cast.map((cast) => ({
+//         name: cast.name,
+//         original_name: cast.original_name,
+//         character: cast.character,
+//         profile_path: cast.profile_path,
+//       }));
+
+//       const directorFilter = castData.crew.find(
+//         (cast) => cast.job === "Director"
+//       );
+
+//       const directorInfo = directorFilter
+//         ? {
+//             name: directorFilter.name,
+//             original_name: directorFilter.original_name,
+//             profile_path: directorFilter.profile_path,
+//             job: directorFilter.job,
+//           }
+//         : null;
+
+//       const movieCertificationResult = movieCertifications.results.filter(
+//         (certification) => certification.iso_3166_1 === "ES"
+//       );
+//       //console.log(movieCertificationResult[0].release_dates[0].certification);
+//       let movieCertified;
+//       if (movieCertificationResult.length > 0) {
+        
+//           if (movieCertificationResult[0].release_dates[0].certification !== "") {
+//             movieCertified = movieCertificationResult[0].release_dates[0].certification
+//           } else {
+//             movieCertified = "";
+//           }
+//       } else {
+//         movieCertified = "";
+//       }
+
+//       if (movie.overview === "") {
+//         movie.overview = "-";
+//       }
+
+//       if (trailers.length > 0) {
+//         const movieWithTrailer = {
+//           adult: movie.adult,
+//           backdrop_path: movie.backdrop_path,
+//           genre_ids: genreNames,
+//           idMovie: movie.id,
+//           original_language: movie.original_language,
+//           original_title: movie.original_title,
+//           overview: movie.overview,
+//           popularity: movie.popularity,
+//           poster_path: movie.poster_path,
+//           release_date: movie.release_date,
+//           title: movie.title,
+//           video: movie.video,
+//           vote_average: movie.vote_average,
+//           vote_count: movie.vote_count,
+//           youtube_key: trailers[0].key,
+//           cast: simplifiedCastData,
+//           director: directorInfo,
+//           runTime: movieDetailData.runtime,
+//           certification: movieCertified,
+//         };
+
+//         moviesWithTrailers.push(movieWithTrailer);
+//       }
+//     }
+
+//     return moviesWithTrailers;
+//   } catch (error) {
+//     console.error("Error al obtener películas y trailers:", error);
+//     return [];
+//   }
+// }
+
+// fetchMoviesAndTrailers()
+//   .then((moviesWithTrailers) => {
+//     return Movie.create(moviesWithTrailers);
+//   })
+//   .then((movies) => {
+//     console.debug(`${movies.length} movies created.`);
+//   })
+//   .catch((error) => {
+//     console.error(
+//       "Error fetching movies and trailers or charging the database:",
+//       error
+//     );
+//   });

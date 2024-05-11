@@ -96,7 +96,7 @@ function MovieDetails({ movie }) {
                       alt={`photo of ${actor.name}`}
                     />
                     <span className="text-white text-lg">{actor.name}</span>
-                    <span className="text-white text-lg">Papel: {actor.character}</span>
+                    <span className="text-white text-lg">{actor.character}</span>
                     
                   </div>
                 ))}

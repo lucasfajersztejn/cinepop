@@ -51,11 +51,3 @@ const timeSheetSchema = new Schema(
 const TimeSheet = mongoose.model("TimeSheet", timeSheetSchema);
 module.exports = TimeSheet;
 
-/* 
-Modelo Timesheet
-idCine: ObjectId
-idPelicula: objectId
-empieza: Date
-termina: Date
-horario: { lunes: [8 / 10, 15], martes: [8 / 12 / 19] ....} (
-*/
