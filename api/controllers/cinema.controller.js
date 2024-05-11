@@ -42,7 +42,10 @@ module.exports.detail = (req, res, next) => {
     .populate("timesheets")
     .then((cinema) => {
       if (cinema) {
-        res.json(cinema);
+        const cinemaJson = cinema.toJSON();
+        cinemaJson.timesheets = cinema.timesheets;
+        console.debug(cinemaJson);
+        res.json(cinemaJson);
       } else {
         res.status(404).json({ message: "Cinema was not found" });
       }

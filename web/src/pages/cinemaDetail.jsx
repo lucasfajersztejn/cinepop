@@ -21,6 +21,8 @@ function CinemaDetail() {
     fetchMovie();
   }, [id]);
 
+  console.log(cinema);
+
   return (
     <section className="mt-40 lg:mt-44 xl:mt-48 mx-[5%]">
       <CinemaDetails {...cinema} />

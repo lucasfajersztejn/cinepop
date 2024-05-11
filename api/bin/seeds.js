@@ -25,6 +25,9 @@ const cinemas = require("../data/cinemas.json");
 // const moviesWithGenreNames = movies.map((movie) => replaceGenreIds(movie));
 
 
+
+/************************************************************************************************************/
+
 // Función para generar horarios aleatorios
 function generateRandomSchedules() {
   const daysOfWeek = ["monday", "tuesday", "wednesday", "thursday", "friday", "saturday", "sunday"];
@@ -79,62 +82,44 @@ async function loadMoviesAndCinemas() {
     const movies = await Movie.find();
     const moviesIds = movies.map(movie => movie.id);
 
-    // Obtener todos los cines ordenados por prioridad
-    const cinemas = await Cinema.find().sort({ priority: 1 });
-    const firstCinemas = cinemas.filter((cinema) => cinema.priority === 1).map((cinema) => cinema.id)
-    const secondCinemas = cinemas.filter((cinema) => cinema.priority === 2).map((cinema) => cinema.id)
-    const thirdCinemas = cinemas.filter((cinema) => cinema.priority === 3).map((cinema) => cinema.id)
-    const fourCinemas = cinemas.filter((cinema) => cinema.priority === 4).map((cinema) => cinema.id)
+    // Obtener todos los cines
+    const cinemas = await Cinema.find();
+    const cinemasIds = cinemas.map(cinema => cinema.id);
 
-    //obtener desde que fecha hasta que fecha estará en cartelera
+    // Obtener la fecha de inicio y de finalización para las películas en cartelera
     const today = new Date();
-    const releaseDate = new Date(today.getTime() - (3 * 7 * 24 * 60 * 60 * 1000)); //today - 3 weeks
-    const endDate = new Date(today.getTime() + (3 * 7 * 24 * 60 * 60 * 1000)); //today + 3 weeks
-    
+    const releaseDate = new Date(today.getTime() - (3 * 7 * 24 * 60 * 60 * 1000)); // Hoy menos 3 semanas
+    const endDate = new Date(today.getTime() + (3 * 7 * 24 * 60 * 60 * 1000)); // Hoy más 3 semanas
+
+    // Generar horarios aleatorios para todas las películas
     const schedules = generateRandomSchedules();
 
-    // Inicializar un objeto para almacenar el número de películas cargadas por cada cine
-    const loadedMoviesCount = {};
-
-    // Recorrer los cines
+    // Generar instancias de TimeSheet para todas las combinaciones de cines y películas
+    const timeSheets = [];
     for (const cinema of cinemas) {
+      const idCinema = cinema.id;
+      for (const movieId of moviesIds) {
+        const idMovie = movieId;
+        const dateStart = releaseDate;
+        const dateFinish = endDate;
+        const schedule = schedules; // Aquí deberías proporcionar el horario correcto para cada película
 
+        const timeSheet = new TimeSheet({
+          idCinema,
+          idMovie,
+          dateStart,
+          dateFinish,
+          schedules: schedule
+        });
 
-
-      // Obtener el número de salas de cine de este cine
-      const movieTheaters = cinema.movieTheaters;
-
-      // Calcular cuántas películas cargar para este cine según su prioridad
-      const moviesToLoad = Math.floor((movieTheaters * cinema.priority) / 10);
-
-      // Obtener las hojas de tiempo más recientes para este cine
-      const timeSheets = await TimeSheet.find({ idCinema: cinema._id })
-        .sort({ dateStart: -1 })
-        .limit(moviesToLoad);
-
-      // Extraer los IDs de películas de las hojas de tiempo
-      const movieIds = timeSheets.map((timeSheet) => timeSheet.idMovie);
-
-      // Filtrar las películas que corresponden a estos IDs
-      const loadedMovies = movies.filter((movie) =>
-        movieIds.includes(movie._id.toString())
-      );
-
-      // Almacenar el número de películas cargadas para este cine
-      loadedMoviesCount[cinema._id.toString()] = loadedMovies.length;
-
-      // Hacer algo con las películas cargadas para este cine, por ejemplo, imprimir sus títulos
-      // console.log(`Cinema: ${cinema.name}`);
-      // loadedMovies.forEach((movie) => {
-
-      // });
+        timeSheets.push(timeSheet);
+      }
     }
 
-    // // Hacer algo con el objeto loadedMoviesCount, por ejemplo, imprimir el número de películas cargadas por cada cine
-    // console.log("Movies loaded per cinema:");
-    // Object.keys(loadedMoviesCount).forEach((cinemaId) => {
-    //   console.log(`${cinemaId}: ${loadedMoviesCount[cinemaId]}`);
-    // });
+    // Guardar las instancias de TimeSheet en la base de datos
+    await TimeSheet.insertMany(timeSheets);
+
+    console.log("TimeSheets generados con éxito");
   } catch (error) {
     console.error("Error:", error);
   }
@@ -144,11 +129,7 @@ async function loadMoviesAndCinemas() {
 loadMoviesAndCinemas();
 
 
-
-
-
-
-
+/************************************************************************************************************/
 
 // To request the movies from the API, change the genre ids to the genres and load everything in the database 
 
