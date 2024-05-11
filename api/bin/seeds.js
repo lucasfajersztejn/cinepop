@@ -25,19 +25,82 @@ const cinemas = require("../data/cinemas.json");
 // const moviesWithGenreNames = movies.map((movie) => replaceGenreIds(movie));
 
 
+// Función para generar horarios aleatorios
+function generateRandomSchedules() {
+  const daysOfWeek = ["monday", "tuesday", "wednesday", "thursday", "friday", "saturday", "sunday"];
+  const schedules = {};
+  daysOfWeek.forEach(day => {
+    const numOfSlots = Math.floor(Math.random() * 5) + 1; // Generar entre 1 y 5 horarios por día
+    const firstDay = Math.floor(Math.random() * 1) + 1; // Generar entre 1 y 4 horarios por día
+    const weekend = Math.floor(Math.random() * 3) + 4; // Devuelve 4 o 5
+
+    if (day === "monday") {
+      schedules[day] = Array.from({ length: firstDay }, () => generateRandomTime());
+    } else if (day === "saturday") {
+      schedules[day] = Array.from({ length: weekend }, () => generateRandomTime());
+    } else if (day === "sunday") {
+      schedules[day] = Array.from({ length: weekend }, () => generateRandomTime());
+    } else {
+      schedules[day] = Array.from({ length: numOfSlots }, () => generateRandomTime());
+    }
+
+    // Ordenar los horarios de más temprano a más tarde
+    schedules[day].sort((a, b) => {
+      const [hourA, minuteA] = a.split(":").map(Number);
+      const [hourB, minuteB] = b.split(":").map(Number);
+      return hourA - hourB || minuteA - minuteB;
+    });
+  });
+  return schedules;
+}
+
+
+// Función para generar una hora aleatoria entre las 09:00 y las 02:00
+function generateRandomTime() {
+  const startHour = 9; // 09:00
+  const endHour = 26; // 02:00 del día siguiente en formato de 24 horas
+
+  // Generar una hora aleatoria entre startHour y endHour
+  let randomHour = Math.floor(Math.random() * (endHour - startHour)) + startHour;
+  randomHour = randomHour % 24;
+  
+
+  // Generar minutos aleatorios entre 0 y 59
+  const randomMinutes = Math.floor(Math.random() * 60);
+
+  // Formatear la hora en formato de cadena HH:MM
+  return `${randomHour.toString().padStart(2, '0')}:${randomMinutes.toString().padStart(2, '0')}`;
+}
+
+
 async function loadMoviesAndCinemas() {
   try {
     // Obtener todas las películas
     const movies = await Movie.find();
+    const moviesIds = movies.map(movie => movie.id);
 
     // Obtener todos los cines ordenados por prioridad
     const cinemas = await Cinema.find().sort({ priority: 1 });
+    const firstCinemas = cinemas.filter((cinema) => cinema.priority === 1).map((cinema) => cinema.id)
+    const secondCinemas = cinemas.filter((cinema) => cinema.priority === 2).map((cinema) => cinema.id)
+    const thirdCinemas = cinemas.filter((cinema) => cinema.priority === 3).map((cinema) => cinema.id)
+    const fourCinemas = cinemas.filter((cinema) => cinema.priority === 4).map((cinema) => cinema.id)
+
+    //obtener desde que fecha hasta que fecha estará en cartelera
+    const today = new Date();
+    const releaseDate = new Date(today.getTime() - (3 * 7 * 24 * 60 * 60 * 1000)); //today - 3 weeks
+    const endDate = new Date(today.getTime() + (3 * 7 * 24 * 60 * 60 * 1000)); //today + 3 weeks
+    
+    const schedules = generateRandomSchedules();
 
     // Inicializar un objeto para almacenar el número de películas cargadas por cada cine
     const loadedMoviesCount = {};
 
     // Recorrer los cines
     for (const cinema of cinemas) {
+
+
+
       // Obtener el número de salas de cine de este cine
       const movieTheaters = cinema.movieTheaters;
 
@@ -61,17 +124,17 @@ async function loadMoviesAndCinemas() {
       loadedMoviesCount[cinema._id.toString()] = loadedMovies.length;
 
       // Hacer algo con las películas cargadas para este cine, por ejemplo, imprimir sus títulos
-      console.log(`Cinema: ${cinema.name}`);
-      loadedMovies.forEach((movie) => {
+      // console.log(`Cinema: ${cinema.name}`);
+      // loadedMovies.forEach((movie) => {
 
-      });
+      // });
     }
 
-    // Hacer algo con el objeto loadedMoviesCount, por ejemplo, imprimir el número de películas cargadas por cada cine
-    console.log("Movies loaded per cinema:");
-    Object.keys(loadedMoviesCount).forEach((cinemaId) => {
-      console.log(`${cinemaId}: ${loadedMoviesCount[cinemaId]}`);
-    });
+    // // Hacer algo con el objeto loadedMoviesCount, por ejemplo, imprimir el número de películas cargadas por cada cine
+    // console.log("Movies loaded per cinema:");
+    // Object.keys(loadedMoviesCount).forEach((cinemaId) => {
+    //   console.log(`${cinemaId}: ${loadedMoviesCount[cinemaId]}`);
+    // });
   } catch (error) {
     console.error("Error:", error);
   }
