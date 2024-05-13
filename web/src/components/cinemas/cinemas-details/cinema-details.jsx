@@ -4,30 +4,53 @@ import { Navigate } from "react-router-dom";
 
 function CinemaDetails({ name, movieTheaters, description, web, avatar, bgAvatar, phoneNumber, address, id, priority, movies }) {
   const [isLoading, setIsLoading] = useState(true);
-  const [sortedMovies, setSortedMovies] = useState([]);
+  // const [sortedMovies, setSortedMovies] = useState([]);
+  // const [moviesFiltered, setMoviesFiltered] = useState([]);
+  // const [schedules, setSchedules] = useState([]);
+  // const [weekDays, setWeekDays] = useState([]);
 
   useEffect(() => {
-    const sortedMovies = movies.slice().sort((a, b) => new Date(b.release_date) - new Date(a.release_date));
-    setSortedMovies(sortedMovies);
-    setIsLoading(false);
-  }, [movies]);
+  //   const fetchData = async () => {
+      setIsLoading(false);
 
-  const targetDate = new Date("2024-03-15");
-  const endDate = new Date("2024-05-15");
-  const moviesFiltered = movies.filter((movie) => {
-    const releaseDate = new Date(movie.release_date);
-    if (priority === 1) {
-      return releaseDate >= targetDate && releaseDate <= endDate; 
-    }
-  })
+  //     const sortedMovies = movies.slice().sort((a, b) => new Date(b.release_date) - new Date(a.release_date));
+  //     setSortedMovies(sortedMovies);
 
-  const onlyHours = moviesFiltered.map((movie) => movie.timesheets.filter((object) => object.idCinema === id));
-  const schedules = onlyHours.map((hour) => hour.map((algo) => algo.schedules));
-  // console.log(schedules[0][0])
-  // const allDays = Object.keys(schedules[0][0]);
-  // console.log(allDays)
+ 
+
+  //     if (filteredMovies.length > 0) {
+  //       const onlyHours = filteredMovies.map((movie) => movie.timesheets.filter((object) => object.idCinema === id));
+  //       const schedules = onlyHours.map((hour) => hour.map((hourInsSchedule) => hourInsSchedule.schedules));
+  //       const allDays = Object.keys(schedules[0][0]);
+  //       setSchedules(schedules);
+  //       setWeekDays(allDays)
+  //     }
+
+  //     setIsLoading(!isLoading);
+    // };
+
+  //   fetchData();
+  }, [movies, id, priority]);
 
 
+    const targetDate = new Date("2024-03-15");
+    const endDate = new Date("2024-05-15");
+    const filteredMovies = movies.filter((movie) => {
+      const releaseDate = new Date(movie.release_date);
+      return priority === 1 && releaseDate >= targetDate && releaseDate <= endDate
+    });
+    // setMoviesFiltered(filteredMovies);
+
+  const filterMovies = filteredMovies.map((movie) => movie.timesheets.filter((timesheet) => timesheet.idCinema === id))
+  // console.log(filterMovies)
+
+  const allSchedules = filterMovies.flatMap(movie =>
+    movie.map(timesheet =>
+      timesheet.schedules
+    )
+  );
+  console.log(allSchedules)
+  
   
   return (
     <section>
