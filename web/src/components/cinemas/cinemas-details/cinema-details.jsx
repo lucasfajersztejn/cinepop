@@ -49,6 +49,7 @@ function CinemaDetails({
     );
   });
   // setMoviesFiltered(filteredMovies);
+  console.log(filteredMovies)
 
   const filterMovies = filteredMovies.map((movie) =>
     movie.timesheets.filter((timesheet) => timesheet.idCinema === id)
@@ -103,11 +104,44 @@ function CinemaDetails({
                 {name}
               </h2>
               <p className="text-white text-lg lg:text-xl">{description}</p>
+            </div>
+          </div>
+
+
+          <div className="flex flex-col gap-2 p-3 justify-start border border-slate-500 bg-slate-800/70 rounded-xl mt-4">
+
+              <div className="bg-slate-400 p-2 rounded-lg flex flex-wrap  sm:flex-row gap-2 md:gap-4 justify-center items-center">
+
+                <span className="text-white font-normal text-lg underline">Día:</span>
+                <select onClick={handleDays} className="text-center rounded-xl p-1 font-semibold ring-2 ring-red-500">
+                  <option value="monday">Lunes</option>
+                  <option value="tuesday">Martes</option>
+                  <option value="wednesday">Miércoles</option>
+                  <option value="thursday">Jueves</option>
+                  <option value="friday">Viernes</option>
+                  <option value="saturday">Sábado</option>
+                  <option value="sunday">Domingo</option>
+                </select>
+
+
+                <span className="text-white font-normal text-lg underline">Combo: </span>
+                <select className="appearance-none text-center rounded-xl p-1 font-semibold ring-2 ring-red-500">
+                  <option value="monday">Si</option>
+                  <option value="tuesday">No</option>
+                </select>
+              
+                <span className="text-white font-normal text-lg underline">combos:</span>
+                <select className="appearance-none text-center rounded-xl p-1 font-semibold ring-2 ring-red-500">
+                  <option value="monday">Si</option>
+                  <option value="tuesday">No</option>
+                </select>
+              
+              </div>
 
               {filteredMovies.map((filterMovie) => (
                 <div
                   key={filterMovie.idMovie}
-                  className="flex flex-col lg:flex-row items-center lg:gap-5"
+                  className="flex flex-col lg:flex-row items-center lg:gap-5 mt-3"
                 >
                   <img
                     className="rounded-3xl w-1/2 md:w-1/3 lg:w-1/5"
@@ -115,30 +149,29 @@ function CinemaDetails({
                     alt="Poster image"
                   />
 
-                  <div>
-                    <select onClick={handleDays}>
-                      <option></option>
-                      <option value="monday">Lunes</option>
-                      <option value="tuesday">Martes</option>
-                      <option value="wednesday">Miércoles</option>
-                      <option value="thursday">Jueves</option>
-                      <option value="friday">Viernes</option>
-                      <option value="saturday">Sábado</option>
-                      <option value="sunday">Domingo</option>
-                    </select>
+                  <div className="flex flex-col gap-3">
+                    
+                    <h2 className="text-white font-semibold text-2xl">{filterMovie.title}</h2>
+                    <p className="text-white text-lg">{filterMovie.overview}</p>
 
-                    <ul>
-                      <select>
-                        {availableHours.map((hour, index) => (
-                          <option key={index}>{hour}</option>
-                        ))}
-                      </select>
-                    </ul>
+                    <div className="flex flex-wrap gap-2">
+                      {availableHours.map((hour, index) => (
+                        <span key={index} className="text-white bg-red-500 hover:bg-red-400 rounded-3xl ring-red-300 ring-2 p-2">{hour}</span>
+                      ))}
+                    </div>
                   </div>
+
+                  <div className="flex gap-5 lg:flex-col lg:gap-2 justify-center items-center">
+                    <span className="text-white font-medium text-lg">Entradas</span>
+                    <input type="number" className="p-2 w-16"/>
+                  </div>
+
                 </div>
               ))}
             </div>
-          </div>
+
+
+          
         </div>
       )}
     </section>
