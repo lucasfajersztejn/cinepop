@@ -18,6 +18,7 @@ function CinemaDetails({
   const [isLoading, setIsLoading] = useState(true);
   const [weekDay, setWeekDay] = useState("");
   const [availableHours, setAvailableHours] = useState([]);
+  const [isCombo, setIsCombo] = useState(false)
 
   useEffect(() => {
     //   const fetchData = async () => {
@@ -49,7 +50,7 @@ function CinemaDetails({
     );
   });
   // setMoviesFiltered(filteredMovies);
-  console.log(filteredMovies)
+  // console.log(filteredMovies)
 
   const filterMovies = filteredMovies.map((movie) =>
     movie.timesheets.filter((timesheet) => timesheet.idCinema === id)
@@ -65,6 +66,10 @@ function CinemaDetails({
     const uniqueHours = [...new Set(hours.flat())];
     setAvailableHours(uniqueHours);
   };
+
+  const handleCombo = () => {
+    setIsCombo(prev => !prev)
+  }
 
   return (
     <section>
@@ -92,7 +97,7 @@ function CinemaDetails({
                 <p className="ms-2">{address}</p>
                 <p className="ms-2">{phoneNumber}</p>
                 {web && (
-                  <a className="ms-2" href={web} target="_blank">
+                  <a className="ms-2 truncate" href={web} target="_blank">
                     {web}
                   </a>
                 )}
@@ -114,7 +119,7 @@ function CinemaDetails({
 
                 <span className="text-white font-normal text-lg underline">Día:</span>
                 <select onClick={handleDays} className="text-center rounded-xl p-1 font-semibold ring-2 ring-red-500">
-                  <option value="monday">Lunes</option>
+                  <option value="monday" defaultValue>Lunes</option>
                   <option value="tuesday">Martes</option>
                   <option value="wednesday">Miércoles</option>
                   <option value="thursday">Jueves</option>
@@ -125,16 +130,20 @@ function CinemaDetails({
 
 
                 <span className="text-white font-normal text-lg underline">Combo: </span>
-                <select className="appearance-none text-center rounded-xl p-1 font-semibold ring-2 ring-red-500">
-                  <option value="monday">Si</option>
-                  <option value="tuesday">No</option>
-                </select>
+                <input type="checkbox" onClick={handleCombo} className="text-center rounded-xl p-4   font-semibold ring-2 ring-red-500" />
+       
               
-                <span className="text-white font-normal text-lg underline">combos:</span>
-                <select className="appearance-none text-center rounded-xl p-1 font-semibold ring-2 ring-red-500">
-                  <option value="monday">Si</option>
-                  <option value="tuesday">No</option>
-                </select>
+                {isCombo && ( 
+                <div>
+                  <span className="text-white font-normal text-lg underline me-3">combos:</span>
+                  <select className="appearance-none text-center rounded-xl p-1 font-semibold ring-2 ring-red-500">
+                    <option value="1">combo 1</option>
+                    <option value="2">combo 2</option>
+                    <option value="3">combo 3</option>
+                    <option value="4">combo 4</option>
+                  </select>
+                </div>
+                )}
               
               </div>
 
@@ -163,7 +172,7 @@ function CinemaDetails({
 
                   <div className="flex gap-5 lg:flex-col lg:gap-2 justify-center items-center">
                     <span className="text-white font-medium text-lg">Entradas</span>
-                    <input type="number" className="p-2 w-16"/>
+                    <input type="number" className="p-2 w-16" min={1}/>
                   </div>
 
                 </div>
