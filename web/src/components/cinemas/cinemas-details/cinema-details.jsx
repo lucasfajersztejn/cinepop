@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 import Map from "../../google/map/map";
 import { Navigate } from "react-router-dom";
+import FilmsInTheaters from "./films-in-theaters/films-in-theaters";
 
 function CinemaDetails({
   name,
@@ -18,28 +19,17 @@ function CinemaDetails({
   const [isLoading, setIsLoading] = useState(true);
   const [weekDay, setWeekDay] = useState("");
   const [availableHours, setAvailableHours] = useState([]);
-  const [isCombo, setIsCombo] = useState(false)
+  const [isCombo, setIsCombo] = useState(false);
+  const [ticketPrice, setTicketPrice] = useState(0);
+  const [combo, setCombo] = useState(0);
+  const [totalPrice, setTotalPrice] = useState(0);
+  const [hourSelected, setHourSelected] = useState(-1);
 
   useEffect(() => {
-    //   const fetchData = async () => {
+    const newTotalPrice = ticketPrice + combo;
+    setTotalPrice(newTotalPrice);
     setIsLoading(false);
-
-    //     const sortedMovies = movies.slice().sort((a, b) => new Date(b.release_date) - new Date(a.release_date));
-    //     setSortedMovies(sortedMovies);
-
-    //     if (filteredMovies.length > 0) {
-    //       const onlyHours = filteredMovies.map((movie) => movie.timesheets.filter((object) => object.idCinema === id));
-    //       const schedules = onlyHours.map((hour) => hour.map((hourInsSchedule) => hourInsSchedule.schedules));
-    //       const allDays = Object.keys(schedules[0][0]);
-    //       setSchedules(schedules);
-    //       setWeekDays(allDays)
-    //     }
-
-    //     setIsLoading(!isLoading);
-    // };
-
-    //   fetchData();
-  }, [movies, id, priority]);
+  }, [movies, id, priority, ticketPrice, combo]);
 
   const targetDate = new Date("2024-03-15");
   const endDate = new Date("2024-05-15");
@@ -49,8 +39,6 @@ function CinemaDetails({
       priority === 1 && releaseDate >= targetDate && releaseDate <= endDate
     );
   });
-  // setMoviesFiltered(filteredMovies);
-  // console.log(filteredMovies)
 
   const filterMovies = filteredMovies.map((movie) =>
     movie.timesheets.filter((timesheet) => timesheet.idCinema === id)
@@ -68,8 +56,39 @@ function CinemaDetails({
   };
 
   const handleCombo = () => {
-    setIsCombo(prev => !prev)
-  }
+    setIsCombo((prev) => !prev);
+    if (isCombo) setCombo(0);
+  };
+
+  const handleTicketPrice = (event) => {
+    const price = calculateTicketPrice(event.target.value);
+    setTicketPrice(price);
+  };
+
+  const handleComboPrice = (event) => {
+    const selectedCombo = event.target.value;
+    if (selectedCombo === "1") {
+      setCombo(15);
+    } else if (selectedCombo === "2") {
+      setCombo(12);
+    } else if (selectedCombo === "3") {
+      setCombo(10);
+    } else if (selectedCombo === "4") {
+      setCombo(7);
+    }
+  };
+
+  const calculateTicketPrice = (numTickets) => {
+    if (priority === 1) return numTickets * 5;
+    else if (priority === 2) return numTickets * 4;
+    else if (priority === 3) return numTickets * 3;
+    else if (priority === 4) return numTickets * 2;
+    else return 0;
+  };
+
+  const handleHourPicked = (index) => {
+    setHourSelected(index);
+  };
 
   return (
     <section>
@@ -112,75 +131,67 @@ function CinemaDetails({
             </div>
           </div>
 
-
           <div className="flex flex-col gap-2 p-3 justify-start border border-slate-500 bg-slate-800/70 rounded-xl mt-4">
+            <div className="bg-slate-400 p-2 rounded-lg flex flex-wrap  sm:flex-row gap-2 md:gap-4 justify-center items-center">
+              <span className="text-white font-normal text-lg underline">
+                Día:
+              </span>
+              <select
+                onClick={handleDays}
+                className="text-center rounded-xl p-1 font-semibold ring-2 ring-red-500"
+              >
+                <option value="monday">Lunes</option>
+                <option value="tuesday">Martes</option>
+                <option value="wednesday">Miércoles</option>
+                <option value="thursday">Jueves</option>
+                <option value="friday">Viernes</option>
+                <option value="saturday">Sábado</option>
+                <option value="sunday">Domingo</option>
+              </select>
 
-              <div className="bg-slate-400 p-2 rounded-lg flex flex-wrap  sm:flex-row gap-2 md:gap-4 justify-center items-center">
+              <span className="text-white font-normal text-lg underline">
+                Combo:{" "}
+              </span>
+              <input
+                type="checkbox"
+                onClick={handleCombo}
+                className="text-center rounded-xl p-4   font-semibold ring-2 ring-red-500"
+              />
 
-                <span className="text-white font-normal text-lg underline">Día:</span>
-                <select onClick={handleDays} className="text-center rounded-xl p-1 font-semibold ring-2 ring-red-500">
-                  <option value="monday" defaultValue>Lunes</option>
-                  <option value="tuesday">Martes</option>
-                  <option value="wednesday">Miércoles</option>
-                  <option value="thursday">Jueves</option>
-                  <option value="friday">Viernes</option>
-                  <option value="saturday">Sábado</option>
-                  <option value="sunday">Domingo</option>
-                </select>
-
-
-                <span className="text-white font-normal text-lg underline">Combo: </span>
-                <input type="checkbox" onClick={handleCombo} className="text-center rounded-xl p-4   font-semibold ring-2 ring-red-500" />
-       
-              
-                {isCombo && ( 
+              {isCombo && (
                 <div>
-                  <span className="text-white font-normal text-lg underline me-3">combos:</span>
-                  <select className="appearance-none text-center rounded-xl p-1 font-semibold ring-2 ring-red-500">
-                    <option value="1">combo 1</option>
-                    <option value="2">combo 2</option>
-                    <option value="3">combo 3</option>
-                    <option value="4">combo 4</option>
+                  <span className="text-white font-normal text-lg underline me-3">
+                    combos:
+                  </span>
+                  <select
+                    onChange={handleComboPrice}
+                    className="appearance-none text-center rounded-xl p-1 font-semibold ring-2 ring-red-500"
+                  >
+                    <option value={1}>combo 1</option>
+                    <option value={2}>combo 2</option>
+                    <option value={3}>combo 3</option>
+                    <option value={4}>combo 4</option>
                   </select>
                 </div>
-                )}
-              
-              </div>
-
-              {filteredMovies.map((filterMovie) => (
-                <div
-                  key={filterMovie.idMovie}
-                  className="flex flex-col lg:flex-row items-center lg:gap-5 mt-3"
-                >
-                  <img
-                    className="rounded-3xl w-1/2 md:w-1/3 lg:w-1/5"
-                    src={`https://image.tmdb.org/t/p/original/${filterMovie.poster_path}`}
-                    alt="Poster image"
-                  />
-
-                  <div className="flex flex-col gap-3">
-                    
-                    <h2 className="text-white font-semibold text-2xl">{filterMovie.title}</h2>
-                    <p className="text-white text-lg">{filterMovie.overview}</p>
-
-                    <div className="flex flex-wrap gap-2">
-                      {availableHours.map((hour, index) => (
-                        <span key={index} className="text-white bg-red-500 hover:bg-red-400 rounded-3xl ring-red-300 ring-2 p-2">{hour}</span>
-                      ))}
-                    </div>
-                  </div>
-
-                  <div className="flex gap-5 lg:flex-col lg:gap-2 justify-center items-center">
-                    <span className="text-white font-medium text-lg">Entradas</span>
-                    <input type="number" className="p-2 w-16" min={1}/>
-                  </div>
-
-                </div>
-              ))}
+              )}
             </div>
 
-
-          
+            {filteredMovies.map((filterMovie) => (
+              <div
+                key={filterMovie.idMovie}
+                className="flex flex-col lg:flex-row items-center lg:gap-5 mt-3"
+              >
+                <FilmsInTheaters
+                  filterMovie={filterMovie}
+                  availableHours={availableHours}
+                  handleHourPicked={handleHourPicked}
+                  handleTicketPrice={handleTicketPrice}
+                  totalPrice={totalPrice}
+                  hourSelected={hourSelected}
+                />
+              </div>
+            ))}
+          </div>
         </div>
       )}
     </section>
