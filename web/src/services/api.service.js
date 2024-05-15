@@ -17,6 +17,10 @@ export function login() {
   })
 }
 
+export function getProfile() {
+  return http.get("/profile");
+}
+
 export function logout() {
   localStorage.removeItem("token");
 }
