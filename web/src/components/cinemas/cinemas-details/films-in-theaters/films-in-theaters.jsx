@@ -49,13 +49,16 @@ function FilmsInTheaters({
           min={0}
           onClick={handleTicketPrice}
         />
+
+        <div>
+          <span className="text-white font-semibold text-2xl underline">Total</span>
+          <h3 className="bg-white text-black text-2xl font-bold mt-2 p-2">
+            {totalPrice} €
+          </h3>
+        </div>
       </div>
 
-      <div>
-        <h3 className="bg-white text-black text-2xl font-bold p-2">
-          {totalPrice} €
-        </h3>
-      </div>
+      
     </div>
   );
 }

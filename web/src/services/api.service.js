@@ -2,11 +2,24 @@ import axios from "axios";
 
 const http = axios.create({ baseURL: "http://localhost:3000" });
 
+http.interceptors.request.use(function (config) {
+  config.headers.authorization = `BEARER ${localStorage.getItem("token")}`;
+  return config;
+});
+
+
 // User
 export function login() {
-  return http.get("/admin");
+  return http.post("/login", data).then((response) => {
+    localStorage.setItem("token", response.data.accessToken)
+
+    return response;
+  })
 }
 
+export function logout() {
+  localStorage.removeItem("token");
+}
 
 // Movies
 export function getMovies() {
