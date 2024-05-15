@@ -4,6 +4,7 @@ import { Link, NavLink } from "react-router-dom";
 import AuthContext from "../../../context/auth.context";
 
 
+
 function Navbar({ onDarkMode, darkMode }) {
   const { user, doLogout } = useContext(AuthContext);
   const [showOptions, setShowOptions] = useState(false);
@@ -16,8 +17,10 @@ function Navbar({ onDarkMode, darkMode }) {
 
       <nav className="container px-2 lg:max-w-[75%] flex flex-wrap items-center justify-between lg:justify-around mx-auto py-4 ">
         <Link to="/">
-          <img src={icon} alt="icon" className="h-20 ms-2 lg:h-24 xl:h-28"/>
-          {user && <h2>{user.name}</h2>}
+          <div className="flex items-center gap-3">
+            <img src={icon} alt="icon" className="h-20 ms-2 lg:h-24 xl:h-28"/>
+            {user && <h2 className="text-white font-bold text-2xl">{user.name}</h2>}
+          </div>
         </Link>
         
         <div className="md:order-2">
@@ -51,6 +54,7 @@ function Navbar({ onDarkMode, darkMode }) {
           <ul className="flex flex-col gap-6 p-4 md:p-0 mt-4 font-medium  md:flex-row  md:mt-0 md:border-0" onClick={handleShowOptions}>
             <li className="text-center"><NavLink to="/movies" className="relative overflow-hidden z-10 p-2 before:content-[''] before:absolute before:bottom-0 before:left-0 before:h-[2px] before:w-0  before:backdrop-blur-lg before:rounded-lg rounded-xl before:-z-10 before:hover:w-full transition-all text-white hover:text-red-300 dark:text-dark-200 dark:hover:text-red-400 font-bold">Movies</NavLink></li>
             <li className="text-center"><NavLink to="/cinemas" className="relative overflow-hidden z-10 p-2 before:content-[''] before:absolute before:bottom-0 before:left-0 before:h-[2px] before:w-0 before:backdrop-blur-lg before:rounded-lg rounded-xl before:-z-10 before:hover:w-full transition-all text-white hover:text-red-300 dark:text-dark-200 dark:hover:text-red-400 font-bold">Cinemas</NavLink></li>
+            {user && <li className="text-center"><button onClick={doLogout} className="relative overflow-hidden z-10 before:content-[''] before:absolute before:bottom-0 before:left-0 before:h-[2px] before:w-0 before:backdrop-blur-lg before:rounded-lg rounded-xl before:-z-10 before:hover:w-full transition-all text-white hover:text-red-300 dark:text-dark-200 dark:hover:text-red-400 font-bold"><box-icon name='log-out-circle' color='#ffffff' ></box-icon></button></li>}
           </ul>
         </div>
       </nav>

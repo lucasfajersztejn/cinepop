@@ -51,6 +51,10 @@ export function getMovieDetails(id) {
   return http.get(`/movies/${id}`);
 }
 
+export function deleteMovie(id) {
+  return http.delete(`/movies/${id}`)
+}
+
 
 // Cinemas
 export function getCinemas() {

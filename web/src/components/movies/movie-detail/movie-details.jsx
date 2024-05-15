@@ -3,10 +3,15 @@ import "./movie-details.css";
 import ReactDOM from "react-dom";
 import "react-responsive-carousel/lib/styles/carousel.min.css"; // requires a loader
 import { Carousel } from "react-responsive-carousel";
-import { useState } from "react";
+import { useContext, useState } from "react";
+import AuthContext from "../../../context/auth.context";
+import { useNavigate } from "react-router-dom";
+import { deleteMovie } from "../../../services/api.service";
 
 function MovieDetails({ movie }) {
+  const { user } = useContext(AuthContext)
   const [visibleActors, setVisibleActors] = useState(5);
+  const navigate = useNavigate();
 
   const handleLoadMoreActors = () => {
     setVisibleActors(prev => prev + 5);
@@ -14,6 +19,15 @@ function MovieDetails({ movie }) {
 
   const handleLoadLessActors = () => {
     setVisibleActors(prev => prev - 5);
+  }
+
+  const handleDeleteMovie = async () => {
+    try {
+      await deleteMovie(movie.id);
+      navigate("/movies")
+    } catch (error) {
+      console.error(error);
+    }
   }
 
 
@@ -80,6 +94,12 @@ function MovieDetails({ movie }) {
                 <p className="text-white ms-1 mb-1">{movie.runTime} mins</p>
               </div>
             </div>
+            
+            {user &&
+            <div className="border h-40 border-slate-300 w-44 mt-3 shadow-lg bg-slate-600 rounded-xl flex justify-center items-center">
+              <button className="text-white bg-red-500 shadow-lg px-4 py-1 rounded-md" onClick={handleDeleteMovie}>Borrar película</button>
+            </div>
+            }
           </div>
 
           <div className="flex flex-col justify-center gap-2 lg:w-[500px] xl:w-[1000px]">
@@ -101,7 +121,7 @@ function MovieDetails({ movie }) {
                   </div>
                 ))}
               </div>
-              <div className="flex justify-center gap-5">
+              <div className="flex justify-center gap-5 my-2">
                 {visibleActors <= movie.cast.length && (
                   <button className="text-white bg-red-500 shadow-lg px-4 py-1 rounded-md" onClick={handleLoadMoreActors}>Más artistas</button>
                 )}
@@ -114,40 +134,6 @@ function MovieDetails({ movie }) {
 
         </div>
 
-
-        <div className="">
-          <h3 className="text-2xl">
-            <u>Casting:</u>
-          </h3>
-          {/* <Carousel
-            className="my-3"
-            autoPlay={true}
-            infiniteLoop={true}
-            showIndicators={false}
-            showThumbs={false}
-            showStatus={false}
-          >
-            {movie.cast.map((actor) => (
-              <div key={actor.id} className="flex flex-col rounded-3xl">
-                {actor.profile_path ? (
-                  <img
-                    className="rounded-3xl shadow-lg"
-                    src={`https://image.tmdb.org/t/p/original/${actor.profile_path}`}
-                    alt={`photo of ${actor.name}`}
-                  />
-                ) : (
-                  <img
-                    className="rounded-3xl shadow-lg max-h-[580px] object-contain"
-                    src={`https://wally.walker.co.uk/images/wally-wave.jpg`}
-                    alt={`photo of Wally`}
-                  />
-                )}
-                <span className="text-lg">Artista: {actor.name}</span>
-                <span className="text-lg">Papel: {actor.character}</span>
-              </div>
-            ))}
-          </Carousel> */}
-        </div>
       </section>
     </>
   );
