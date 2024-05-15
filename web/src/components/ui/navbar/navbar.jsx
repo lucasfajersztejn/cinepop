@@ -1,10 +1,11 @@
-import { useState } from "react";
+import { useContext, useState } from "react";
 import icon from "../../../assets/images/icono2.png";
 import { Link, NavLink } from "react-router-dom";
+import AuthContext from "../../../context/auth.context";
 
 
 function Navbar({ onDarkMode, darkMode }) {
-
+  const { user, doLogout } = useContext(AuthContext);
   const [showOptions, setShowOptions] = useState(false);
 
   const handleShowOptions = () => {
@@ -16,6 +17,7 @@ function Navbar({ onDarkMode, darkMode }) {
       <nav className="container px-2 lg:max-w-[75%] flex flex-wrap items-center justify-between lg:justify-around mx-auto py-4 ">
         <Link to="/">
           <img src={icon} alt="icon" className="h-20 ms-2 lg:h-24 xl:h-28"/>
+          {user && <h2>{user.name}</h2>}
         </Link>
         
         <div className="md:order-2">

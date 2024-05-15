@@ -7,10 +7,27 @@ http.interceptors.request.use(function (config) {
   return config;
 });
 
+http.interceptors.response.use(
+  function (response) {
+    return response;
+  },
+  function (error) {
+    if (
+      error.response.status === 401 &&
+      location.pathname !== "/admin/login"
+    ) {
+      // navigate refreshing page
+      localStorage.removeItem("token");
+      window.location.replace("/admin/login");
+    }
+
+    return Promise.reject(error);
+  }
+);
 
 // User
-export function login() {
-  return http.post("/login", data).then((response) => {
+export function login(data) {
+  return http.post("/admin/login", data).then((response) => {
     localStorage.setItem("token", response.data.accessToken)
 
     return response;
@@ -18,7 +35,7 @@ export function login() {
 }
 
 export function getProfile() {
-  return http.get("/profile");
+  return http.get("/admin/profile");
 }
 
 export function logout() {
