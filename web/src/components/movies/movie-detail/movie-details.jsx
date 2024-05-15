@@ -1,16 +1,18 @@
 import CastCards from "./cast-card";
 import "./movie-details.css";
 import ReactDOM from "react-dom";
-import "react-responsive-carousel/lib/styles/carousel.min.css"; // requires a loader
+import "react-responsive-carousel/lib/styles/carousel.min.css";
 import { Carousel } from "react-responsive-carousel";
 import { useContext, useState } from "react";
 import AuthContext from "../../../context/auth.context";
 import { useNavigate } from "react-router-dom";
 import { deleteMovie } from "../../../services/api.service";
+import EditMovie from "./edit-movie";
 
 function MovieDetails({ movie }) {
   const { user } = useContext(AuthContext)
   const [visibleActors, setVisibleActors] = useState(5);
+  const [visibleEdit, setVisibleEdit] = useState(true);
   const navigate = useNavigate();
 
   const handleLoadMoreActors = () => {
@@ -19,6 +21,10 @@ function MovieDetails({ movie }) {
 
   const handleLoadLessActors = () => {
     setVisibleActors(prev => prev - 5);
+  }
+
+  const handleVisibleEdit = () => {
+    setVisibleEdit(prev => !prev);
   }
 
   const handleDeleteMovie = async () => {
@@ -50,7 +56,7 @@ function MovieDetails({ movie }) {
         </div>
         
         <div className="flex flex-col md:flex-row gap-3 mx-3">
-          <div className="flex items-center md:flex-col md:items-start gap-2">
+          <div className="flex flex-wrap items-center md:flex-col md:items-start gap-2">
             <div className="relative image_youtube_section w-32 md:w-44 md:mt-5 shadow-lg">
               <img
                 className="w-full rounded-xl"
@@ -96,16 +102,24 @@ function MovieDetails({ movie }) {
             </div>
             
             {user &&
-            <div className="border h-40 border-slate-300 w-44 mt-3 shadow-lg bg-slate-600 rounded-xl flex justify-center items-center">
+            <div className="border h-24 gap-3 border-slate-300 w-44 mt-3 shadow-lg bg-slate-600 rounded-xl flex flex-col justify-center items-center">
               <button className="text-white bg-red-500 shadow-lg px-4 py-1 rounded-md" onClick={handleDeleteMovie}>Borrar película</button>
+              <button className="text-white bg-red-500 shadow-lg px-4 py-1 rounded-md" onClick={handleVisibleEdit}>Editar película</button>
             </div>
             }
           </div>
 
           <div className="flex flex-col justify-center gap-2 lg:w-[500px] xl:w-[1000px]">
-            <h2 className="text-white font-semibold underline text-xl lg:text-4xl">{movie.title}</h2>
-            <h2 className="text-white md:text-lg xl:text-xl">{movie.overview}</h2>
+            
+            {visibleEdit &&
+            <div>
+              <h2 className="text-white font-semibold underline text-xl lg:text-4xl">{movie.title}</h2>
+              <h2 className="text-white md:text-lg xl:text-xl">{movie.overview}</h2>
+            </div>
+            }
 
+            {!visibleEdit && <EditMovie movie={movie}/>}
+            
             <div className="border border-slate-400 bg-slate-800 rounded-xl">
               <div className="md:flex flex-wrap justify-center items-center">
                 {movie.cast.slice(0, visibleActors).map((actor, index) => (

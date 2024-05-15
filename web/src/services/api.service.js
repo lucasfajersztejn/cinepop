@@ -12,10 +12,7 @@ http.interceptors.response.use(
     return response;
   },
   function (error) {
-    if (
-      error.response.status === 401 &&
-      location.pathname !== "/admin/login"
-    ) {
+    if (error.response.status === 401 && location.pathname !== "/admin/login") {
       // navigate refreshing page
       localStorage.removeItem("token");
       window.location.replace("/admin/login");
@@ -28,10 +25,10 @@ http.interceptors.response.use(
 // User
 export function login(data) {
   return http.post("/admin/login", data).then((response) => {
-    localStorage.setItem("token", response.data.accessToken)
+    localStorage.setItem("token", response.data.accessToken);
 
     return response;
-  })
+  });
 }
 
 export function getProfile() {
@@ -51,10 +48,13 @@ export function getMovieDetails(id) {
   return http.get(`/movies/${id}`);
 }
 
-export function deleteMovie(id) {
-  return http.delete(`/movies/${id}`)
+export function patchMovie(id, data) {
+  return http.patch(`/movies/${id}`, data);
 }
 
+export function deleteMovie(id) {
+  return http.delete(`/movies/${id}`);
+}
 
 // Cinemas
 export function getCinemas() {
