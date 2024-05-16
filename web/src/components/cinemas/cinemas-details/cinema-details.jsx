@@ -5,6 +5,7 @@ import FilmsInTheaters from "./films-in-theaters/films-in-theaters";
 import { deleteCinema } from "../../../services/api.service";
 import EditCinema from "./edit-cinema/edit-cinema";
 
+
 function CinemaDetails({
   name,
   movieTheaters,
@@ -17,6 +18,7 @@ function CinemaDetails({
   id,
   priority,
   movies,
+  cinema,
   user,
 }) {
   const [isLoading, setIsLoading] = useState(true);
@@ -29,6 +31,7 @@ function CinemaDetails({
   const [hourSelected, setHourSelected] = useState(-1);
   const [visibleEdit, setVisibleEdit] = useState(true)
   const navigate = useNavigate()
+
 
   useEffect(() => {
     const newTotalPrice = ticketPrice + combo;
@@ -158,7 +161,7 @@ function CinemaDetails({
             </div>
             }
 
-            {!visibleEdit && <EditCinema />}
+            {!visibleEdit && <EditCinema cinema={cinema}/>}
           </div>
 
           <div className="flex flex-col gap-2 p-3 justify-start border border-slate-500 bg-slate-800/70 rounded-xl mt-4">

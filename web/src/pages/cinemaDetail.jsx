@@ -29,7 +29,7 @@ function CinemaDetail() {
 
   return (
     <section className="mt-40 lg:mt-44 xl:mt-48 mx-[5%]">
-      <CinemaDetails {...cinema} movies={movies} user={user} />
+      <CinemaDetails {...cinema} movies={movies} user={user} cinema={cinema} />
     </section>
   )
 }
