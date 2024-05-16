@@ -1,8 +1,5 @@
 import { useEffect, useState } from "react";
 
-
-
-
 function FilmsInTheaters({ movies, id, priority }) {
   const [weekDay, setWeekDay] = useState("");
   const [selectedMoviePrices, setSelectedMoviePrices] = useState({}); // Estado para almacenar los precios de las entradas de cada película seleccionada
@@ -17,7 +14,6 @@ function FilmsInTheaters({ movies, id, priority }) {
   useEffect(() => {
     const newTotalPrice = calculateTotalPrice();
     setTotalPrice(newTotalPrice);
-
   }, [selectedMoviePrices]);
 
 
@@ -26,10 +22,17 @@ function FilmsInTheaters({ movies, id, priority }) {
   const targetDate = new Date("2024-03-15");
   const endDate = new Date("2024-05-15");
   const filteredMovies = movies.filter((movie) => {
+    const movieAverage = parseInt(movie.vote_average);
     const releaseDate = new Date(movie.release_date);
-    return (
-      priority === 1 && releaseDate >= targetDate && releaseDate <= endDate
-    );
+      if (priority === 1) {
+        return releaseDate >= targetDate && releaseDate <= endDate
+      } else if (priority === 2) {
+        return releaseDate >= targetDate && releaseDate <= endDate && movieAverage <= 6 
+      } else if (priority === 3) {
+        return releaseDate >= targetDate && releaseDate <= endDate && movieAverage >= 7
+      } else if (priority === 4) {
+        return movieAverage >= 8
+      }
   });
 
   const filterMovies = filteredMovies.map((movie) =>
@@ -48,10 +51,6 @@ function FilmsInTheaters({ movies, id, priority }) {
   };
 
 
-  // const handleCombo = () => {
-  //   setIsCombo((prev) => !prev);
-  //   if (isCombo) setCombo(0);
-  // };
 
   const handleTicketPrice = (movieId, event) => {
     const price = calculateTicketPrice(event.target.value);
@@ -101,13 +100,11 @@ function FilmsInTheaters({ movies, id, priority }) {
     let totalTicketsPrice = 0;
     for (const movieId in selectedMoviePrices) {
       const moviePrices = selectedMoviePrices[movieId];
-      console.log(moviePrices);
       totalTicketsPrice += moviePrices.ticketPrice;
       if (moviePrices.comboPrice) {
         totalTicketsPrice += moviePrices.comboPrice; // Añadir el precio del combo al total
       }
     }
-    console.log(totalTicketsPrice)
     return totalTicketsPrice;
   };
 
@@ -198,7 +195,9 @@ function FilmsInTheaters({ movies, id, priority }) {
             <div>
               <span className="text-white font-semibold text-2xl underline">Total</span>
               <h3 className="bg-white text-black text-2xl font-bold mt-2 p-2">
-                {selectedMoviePrices[filterMovie.idMovie]?.ticketPrice ?? 0} €
+              {selectedMoviePrices[filterMovie.idMovie]?.ticketPrice != null
+                ? selectedMoviePrices[filterMovie.idMovie]?.ticketPrice + (selectedMoviePrices[filterMovie.idMovie]?.comboPrice ?? 0)
+                : 0} €
               </h3>
             </div>
           </div>
