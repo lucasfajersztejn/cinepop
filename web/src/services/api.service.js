@@ -61,9 +61,9 @@ export function getCinemas() {
   return http.get("/cinemas");
 }
 
-// export function getCinemasFiltered() {
-//   return http.get("/cinemas?lat=&lng=");
-// }
+export function getCinemasFiltered(lat, lng, address) {
+  return http.get(`/cinemas?lat=${lat}&lng=${lng}&address=${address}`);
+}
 
 export function getCinemasDetails(id) {
   return http.get(`/cinemas/${id}`);

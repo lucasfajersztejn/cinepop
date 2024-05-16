@@ -23,15 +23,17 @@ module.exports.list = (req, res, next) => {
           type: "Point",
           coordinates: [lng, lat],
         },
-        $maxDistance: 15000,
+        $maxDistance: 2000,
         $minDistance: 0,
       },
     };
   }
-
   Cinema.find(criterial)
     .populate("timesheets")
-    .then((cinemas) => res.json(cinemas))
+    .then((cinemas) => {
+      console.log(cinemas);
+      res.json(cinemas)
+    })
     .catch((err) =>
       console.error("There was an error finding the cinemas", err)
     );

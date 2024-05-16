@@ -29,8 +29,7 @@ function AutocompleteInput({ className, onPlaceChange }) {
 
   return (
     <div className={`form-floating ${className}`}>
-      <input ref={autocompleteInputRef} type="text" className="form-control" id="autocomplete-input" placeholder="" />
-      <label htmlFor="autocomplete-input">Find restaurants near...</label>
+      <input ref={autocompleteInputRef} type="text" className="form-control" id="autocomplete-input" placeholder="Calle de Guzmán el Bueno 23" />
     </div>
   )
 }
