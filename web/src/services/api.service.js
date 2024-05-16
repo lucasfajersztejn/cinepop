@@ -13,9 +13,9 @@ http.interceptors.response.use(
   },
   function (error) {
     if (error.response.status === 401 && location.pathname !== "/admin/login") {
-      // navigate refreshing page
+      
       localStorage.removeItem("token");
-      window.location.replace("/admin/login");
+      //window.location.replace("/admin/login");
     }
 
     return Promise.reject(error);

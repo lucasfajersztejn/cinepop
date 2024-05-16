@@ -55,8 +55,8 @@ function MovieDetails({ movie }) {
           </ul>
         </div>
         
-        <div className="flex flex-col md:flex-row gap-3 mx-3">
-          <div className="flex flex-wrap items-center md:flex-col md:items-start gap-2">
+        <div className="flex flex-col md:flex-row gap-3 mx-3 mt-3 md:mt-0">
+          <div className={`flex ${user ? "flex-wrap justify-center" : ""} items-center md:justify-normal md:flex-col md:items-start gap-2`}>
             <div className="relative image_youtube_section w-32 md:w-44 md:mt-5 shadow-lg">
               <img
                 className="w-full rounded-xl"
@@ -71,33 +71,33 @@ function MovieDetails({ movie }) {
               </a>
             </div>
 
-            <div className="border border-slate-300 w-44 mt-3 shadow-lg bg-slate-600 rounded-xl">
+            <div className="border border-slate-300 w-44 mt-3 shadow-lg bg-slate-600 rounded-xl p-2">
               <div className="">
-                <h4 className="text-white font-semibold text-xl ms-1">
+                <h4 className="text-white text-lg  ms-1">
                   <u>Fecha de estreno</u>
                 </h4>
-                <p className="text-white ms-1">{movie.release_date}</p>
+                <p className="text-white font-semibold text-xl ms-1">{movie.release_date}</p>
               </div>
 
               <div className="">
-                <h4 className="text-white font-semibold text-xl ms-1">
+                <h4 className="text-white text-lg ms-1">
                   <u>Director</u>
                 </h4>
-                <p className="text-white ms-1">{movie.director.name}</p>
+                <p className="text-white font-semibold text-xl ms-1">{movie.director.name}</p>
               </div>
 
               <div className="">
-                <h4 className="text-white font-semibold text-xl ms-1">
+                <h4 className="text-white text-lg ms-1">
                   <u>Calificación</u>
                 </h4>
-                <p className="text-white ms-1">{movie.certification ? "+" + movie.certification : "+12"}</p>
+                <p className="text-white font-semibold text-xl ms-1">{movie.certification ? "+" + movie.certification : "+12"}</p>
               </div>
 
               <div className="">
-                <h4 className="text-white font-semibold text-xl ms-1">
+                <h4 className="text-white text-lg ms-1">
                   <u>Duración</u>
                 </h4>
-                <p className="text-white ms-1 mb-1">{movie.runTime} mins</p>
+                <p className="text-white font-semibold text-xl ms-1 mb-1">{movie.runTime} mins</p>
               </div>
             </div>
             
@@ -109,11 +109,11 @@ function MovieDetails({ movie }) {
             }
           </div>
 
-          <div className="flex flex-col justify-center gap-2 lg:w-[500px] xl:w-[1000px]">
+          <div className="flex flex-col gap-2 lg:w-full xl:w-full mt-5">
             
             {visibleEdit &&
-            <div>
-              <h2 className="text-white font-semibold underline text-xl lg:text-4xl">{movie.title}</h2>
+            <div className="border border-slate-400 bg-slate-800 rounded-xl p-4">
+              <h2 className="text-white font-semibold underline text-xl lg:text-4xl mb-3">{movie.title}</h2>
               <h2 className="text-white md:text-lg xl:text-xl">{movie.overview}</h2>
             </div>
             }

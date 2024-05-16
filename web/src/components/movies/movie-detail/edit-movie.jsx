@@ -10,36 +10,42 @@ function EditMovie({ movie }) {
   async function onSubmit(data) {
     try {
       await patchMovie(movie.id ,data);
-      navigate(`/movies/${movie.id}`);
+      // navigate(`/movies`);
+      window.location.reload();
     } catch (error) {
       console.error(error)
     }
   }
 
   return (
-    <form onSubmit={handleSubmit(onSubmit)}>
+    <form className="flex flex-col border border-slate-400 bg-slate-800 rounded-xl p-4 " onSubmit={handleSubmit(onSubmit)}>
       {/* TITLE */}
-      <div className="mb-3">
-        <span htmlFor="title" className="text-white me-2">Titulo</span>
-        <input type="text" id="title" {...register("title")}/>
+      <div className="flex flex-col mb-3">
+        <span htmlFor="title" className="text-white underline me-2">Titulo</span>
+        <input type="text" id="title" className="rounded p-1" defaultValue={movie.title} {...register("title")}/>
       </div>
 
       {/* OVERVIEW */}
-      <div className="mb-3">
-        <span htmlFor="overview" className="text-white me-2">Sinopsis</span>
-        <textarea id="overview" className="w-full h-40" {...register("overview")}>{movie.overview}</textarea>
+      <div className="flex flex-col mb-3">
+        <span htmlFor="overview" className="text-white underline me-2">Sinopsis</span>
+        <textarea id="overview" className="w-full h-40 rounded p-1" {...register("overview")}>{movie.overview}</textarea>
       </div>
       
-      {/* Duration */}
-      <div className="">
-        <span htmlFor="runTime" className="text-white me-2">Duración</span>
-        <input type="number" id="runTime" placeholder={movie.runTime} {...register("runTime")}/>
+      {/* DURATION */}
+      <div className="flex flex-col mb-3">
+        <span htmlFor="runTime" className="text-white underline me-2">Duración</span>
+        <input type="number" id="runTime" className="rounded p-1" defaultValue={movie.runTime} {...register("runTime")}/>
       </div>
 
-      {/* DURATION */}
-      <div></div>
+      {/* CERTIFICATION */}
+      {movie.certification &&
+      <div className="flex flex-col mb-3">
+        <span htmlFor="certification" className="text-white underline me-2">Calificación</span>
+        <input type="text" id="certification" className="rounded p-1" defaultValue={movie.certification} {...register("certification")} />
+      </div>
+      }
 
-      <button type="submit" className="text-white">Editar</button>
+      <button type="submit"  className="text-white bg-red-500 w-32 shadow-lg mx-auto py-1 rounded-md">Editar</button>
 
     </form>
   )

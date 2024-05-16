@@ -9,7 +9,7 @@ function MovieItem({ movie }) {
         </figure>
         
         <div className="p-6 rounded-3xl bg-red-900 shadow-lg border-t border-dashed text-white hover:dark:bg-red-900/50 hover:rotate-6 hover:mt-4 hover:me-4 hover:xl:mt-3 hover:2xl:mt-6 hover:3xl:mt-10">
-          <h3 className="font-bold text-lg ">{movie.original_title}</h3>
+          <h3 className="font-bold text-lg ">{movie.title}</h3>
           <p className="line-clamp-3 mt-4">{movie.overview}</p>
           <ul className="flex gap-1 flex-wrap text-sm mt-4">
             {movie.genre_ids.map((genre, index) => (
