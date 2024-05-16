@@ -21,84 +21,16 @@ function CinemaDetails({
   cinema,
   user,
 }) {
-  const [isLoading, setIsLoading] = useState(true);
-  const [weekDay, setWeekDay] = useState("");
-  const [availableHours, setAvailableHours] = useState([]);
-  const [isCombo, setIsCombo] = useState(false);
-  const [ticketPrice, setTicketPrice] = useState(0);
-  const [combo, setCombo] = useState(0);
-  const [totalPrice, setTotalPrice] = useState(0);
-  const [hourSelected, setHourSelected] = useState(-1);
+
   const [visibleEdit, setVisibleEdit] = useState(true)
   const navigate = useNavigate()
 
 
-  useEffect(() => {
-    const newTotalPrice = ticketPrice + combo;
-    setTotalPrice(newTotalPrice);
-    setIsLoading(false);
-  }, [movies, id, priority, ticketPrice, combo]);
-
-  const targetDate = new Date("2024-03-15");
-  const endDate = new Date("2024-05-15");
-  const filteredMovies = movies.filter((movie) => {
-    const releaseDate = new Date(movie.release_date);
-    return (
-      priority === 1 && releaseDate >= targetDate && releaseDate <= endDate
-    );
-  });
-
-  const filterMovies = filteredMovies.map((movie) =>
-    movie.timesheets.filter((timesheet) => timesheet.idCinema === id)
-  );
-  const allSchedules = filterMovies.flatMap((movie) =>
-    movie.map((timesheet) => timesheet.schedules)
-  );
-
-  const handleDays = (event) => {
-    const selectedDay = event.target.value.toLowerCase();
-    setWeekDay(selectedDay);
-    const hours = allSchedules.map((movie) => movie[selectedDay]);
-    const uniqueHours = [...new Set(hours.flat())];
-    setAvailableHours(uniqueHours);
-  };
-
-  const handleCombo = () => {
-    setIsCombo((prev) => !prev);
-    if (isCombo) setCombo(0);
-  };
-
-  const handleTicketPrice = (event) => {
-    const price = calculateTicketPrice(event.target.value);
-    setTicketPrice(price);
-  };
-
-  const handleComboPrice = (event) => {
-    const selectedCombo = event.target.value;
-    if (selectedCombo === "1") {
-      setCombo(15);
-    } else if (selectedCombo === "2") {
-      setCombo(12);
-    } else if (selectedCombo === "3") {
-      setCombo(10);
-    } else if (selectedCombo === "4") {
-      setCombo(7);
-    }
-  };
-
-  const calculateTicketPrice = (numTickets) => {
-    if (priority === 1) return numTickets * 5;
-    else if (priority === 2) return numTickets * 4;
-    else if (priority === 3) return numTickets * 3;
-    else if (priority === 4) return numTickets * 2;
-    else return 0;
-  };
-
-  const handleHourPicked = (index) => {
-    setHourSelected(index);
-  };
-
   const handleDeleteCinema = async () => {
+    if (!window.confirm('estás Seguro?')) {
+      return
+    }
+
     try {
       await deleteCinema(id);
       navigate("/cinemas");
@@ -113,9 +45,6 @@ function CinemaDetails({
 
   return (
     <section>
-      {isLoading ? (
-        <p>cargando...</p>
-      ) : (
         <div>
           <div
             className="relative bg-cover bg-center h-28 md:h-40 lg:h-64 xl:h-96 opacity-[40%] rounded-t-xl"
@@ -164,71 +93,20 @@ function CinemaDetails({
             {!visibleEdit && <EditCinema cinema={cinema}/>}
           </div>
 
-          <div className="flex flex-col gap-2 p-3 justify-start border border-slate-500 bg-slate-800/70 rounded-xl mt-4">
-            <div className="bg-slate-400 p-2 rounded-lg flex flex-wrap  sm:flex-row gap-2 md:gap-4 justify-center items-center">
-              <span className="text-white font-normal text-lg underline">
-                Día:
-              </span>
-              <select
-                onClick={handleDays}
-                className="text-center rounded-xl p-1 font-semibold ring-2 ring-red-500"
-              >
-                <option value="monday">Lunes</option>
-                <option value="tuesday">Martes</option>
-                <option value="wednesday">Miércoles</option>
-                <option value="thursday">Jueves</option>
-                <option value="friday">Viernes</option>
-                <option value="saturday">Sábado</option>
-                <option value="sunday">Domingo</option>
-              </select>
-
-              <span className="text-white font-normal text-lg underline">
-                Combo:{" "}
-              </span>
-              <input
-                type="checkbox"
-                onClick={handleCombo}
-                className="text-center rounded-xl p-4   font-semibold ring-2 ring-red-500"
-              />
-
-              {isCombo && (
-                <div>
-                  <span className="text-white font-normal text-lg underline me-3">
-                    combos:
-                  </span>
-                  <select
-                    onChange={handleComboPrice}
-                    className="appearance-none text-center rounded-xl p-1 font-semibold ring-2 ring-red-500"
-                  >
-                    <option value={1}>combo 1</option>
-                    <option value={2}>combo 2</option>
-                    <option value={3}>combo 3</option>
-                    <option value={4}>combo 4</option>
-                  </select>
-                </div>
-              )}
-            </div>
-
-            {filteredMovies.map((filterMovie) => (
-              <div
-                key={filterMovie.idMovie}
-                className="flex flex-col lg:flex-row items-center lg:gap-5 mt-3"
-              >
-                <FilmsInTheaters
-                  filterMovie={filterMovie}
-                  availableHours={availableHours}
-                  handleHourPicked={handleHourPicked}
-                  handleTicketPrice={handleTicketPrice}
-                  totalPrice={totalPrice}
-                  hourSelected={hourSelected}
-                />
-              </div>
-            ))}
+          <div className="">
+            <FilmsInTheaters movies={movies} id={id} priority={priority}/>
           </div>
+
         </div>
-      )}
     </section>
   );
 }
 
 export default CinemaDetails;
+
+// availableHours={availableHours}
+// handleHourPicked={handleHourPicked}
+// handleTicketPrice={handleTicketPrice}
+// totalPrice={totalPrice}
+// hourSelected={hourSelected}
+// flex flex-col lg:flex-row items-center lg:gap-5 mt-3

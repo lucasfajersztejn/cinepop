@@ -29,7 +29,7 @@ module.exports.list = (req, res, next) => {
     };
   }
 
-  Cinema.find()
+  Cinema.find(criterial)
     .populate("timesheets")
     .then((cinemas) => res.json(cinemas))
     .catch((err) =>

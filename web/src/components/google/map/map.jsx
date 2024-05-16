@@ -56,7 +56,7 @@ function Map({ className, center, markers, description, image }) {
 }
 
 Map.defaultProps = {
-  className: "",
+  location: { lat: 0, lng: 0 }
 };
 
 export default Map;
