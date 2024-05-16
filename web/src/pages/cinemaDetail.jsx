@@ -1,12 +1,14 @@
-import { useEffect, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 import { getCinemasDetails, getMovies } from "../services/api.service";
+import AuthContext from "../context/auth.context";
 import CinemaDetails from "../components/cinemas/cinemas-details/cinema-details";
 
 function CinemaDetail() {
   const { id } = useParams();
   const [cinema, setCinema] = useState({});
   const [movies, setMovies] = useState([]);
+  const { user } = useContext(AuthContext);
   const navigate = useNavigate();
 
   useEffect(() => {
@@ -27,7 +29,7 @@ function CinemaDetail() {
 
   return (
     <section className="mt-40 lg:mt-44 xl:mt-48 mx-[5%]">
-      <CinemaDetails {...cinema} movies={movies} />
+      <CinemaDetails {...cinema} movies={movies} user={user} />
     </section>
   )
 }

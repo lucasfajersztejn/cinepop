@@ -28,7 +28,7 @@ function EditMovie({ movie }) {
       {/* OVERVIEW */}
       <div className="flex flex-col mb-3">
         <span htmlFor="overview" className="text-white underline me-2">Sinopsis</span>
-        <textarea id="overview" className="w-full h-40 rounded p-1" {...register("overview")}>{movie.overview}</textarea>
+        <textarea id="overview" className="w-full h-40 rounded p-1" {...register("overview")}  defaultValue={movie.overview}></textarea>
       </div>
       
       {/* DURATION */}

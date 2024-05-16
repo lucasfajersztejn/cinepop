@@ -1,7 +1,9 @@
 import { useEffect, useState } from "react";
 import Map from "../../google/map/map";
-import { Navigate } from "react-router-dom";
+import { Navigate, useNavigate } from "react-router-dom";
 import FilmsInTheaters from "./films-in-theaters/films-in-theaters";
+import { deleteCinema } from "../../../services/api.service";
+import EditCinema from "./edit-cinema/edit-cinema";
 
 function CinemaDetails({
   name,
@@ -15,6 +17,7 @@ function CinemaDetails({
   id,
   priority,
   movies,
+  user,
 }) {
   const [isLoading, setIsLoading] = useState(true);
   const [weekDay, setWeekDay] = useState("");
@@ -24,6 +27,8 @@ function CinemaDetails({
   const [combo, setCombo] = useState(0);
   const [totalPrice, setTotalPrice] = useState(0);
   const [hourSelected, setHourSelected] = useState(-1);
+  const [visibleEdit, setVisibleEdit] = useState(true)
+  const navigate = useNavigate()
 
   useEffect(() => {
     const newTotalPrice = ticketPrice + combo;
@@ -90,6 +95,19 @@ function CinemaDetails({
     setHourSelected(index);
   };
 
+  const handleDeleteCinema = async () => {
+    try {
+      await deleteCinema(id);
+      navigate("/cinemas");
+    } catch (error) {
+      console.error(error);
+    }
+  } 
+
+  const handleVisibleEdit = () => {
+    setVisibleEdit(prev => !prev);
+  }
+
   return (
     <section>
       {isLoading ? (
@@ -121,14 +139,26 @@ function CinemaDetails({
                   </a>
                 )}
               </div>
-            </div>
 
+              {user && 
+                <div className="border h-24 gap-3 border-slate-300 w-44 mt-3 shadow-lg bg-slate-600 rounded-xl flex flex-col justify-center items-center">
+                  <button className="text-white bg-red-500 shadow-lg px-4 py-1 rounded-md" onClick={handleDeleteCinema}>Borrar cine</button>
+                  <button className="text-white bg-red-500 shadow-lg px-4 py-1 rounded-md" onClick={handleVisibleEdit}>Editar cine</button>
+                </div>
+              }
+
+            </div>
+            
+            {visibleEdit && 
             <div className="flex flex-col gap-2 p-3 justify-start border border-slate-500 bg-slate-800/70 rounded-xl">
               <h2 className="text-white font-semibold underline text-xl lg:text-2xl">
                 {name}
               </h2>
               <p className="text-white text-lg lg:text-xl">{description}</p>
             </div>
+            }
+
+            {!visibleEdit && <EditCinema />}
           </div>
 
           <div className="flex flex-col gap-2 p-3 justify-start border border-slate-500 bg-slate-800/70 rounded-xl mt-4">

@@ -2,16 +2,19 @@ import { useEffect, useState } from "react";
 import { Carousel } from "react-responsive-carousel";
 import { getMovies } from "../../../services/api.service";
 import { Link } from "react-router-dom";
+import loadingImg from "../../../assets/loaders/loader_claqueta.gif"
 
 function MoviesCarrousel() {
   const [movies, setMovies] = useState([]);
   const [visibleMovies, setVisibleMovies] = useState(5);
+  const [isLoading, setIsLoading] = useState(true);
 
   useEffect(() => {
     async function fetchMovies() {
       try {
         const { data: movies } = await getMovies();
         setMovies(movies);
+        setIsLoading(false)
       } catch(error) {
         console.error(error)
       }
@@ -37,7 +40,11 @@ function MoviesCarrousel() {
 
   return (
     <div className="">
-      
+      {isLoading ? (
+        <img src={loadingImg} alt="Loading image" />
+      ) : (
+
+      <div>
       {moviesFiltered.slice(0, visibleMovies).map((movie) => (
 
         <div key={movie.id} className=" flex flex-wrap lg:min-h-[455px] lg:max-h-[502px] sm:flex-nowrap gap-0 sm:gap-3 lg:gap-12 items-center my-3 rounded-3xl bg-slate-500"> 
@@ -92,7 +99,8 @@ function MoviesCarrousel() {
             <button className="bg-red-500 shadow-lg text-white px-4 py-2 sm:mx-20 w-[50%] rounded-md mt-4 hover:bg-red-400 hover:text-black hover:font-bold" onClick={handleLessMovies}>MENOS PELÍCULAS</button>
           )} 
         </div>         
-      
+      </div>
+      )}
     </div>
   )
 }

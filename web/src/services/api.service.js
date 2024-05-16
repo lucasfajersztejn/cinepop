@@ -64,3 +64,11 @@ export function getCinemas() {
 export function getCinemasDetails(id) {
   return http.get(`/cinemas/${id}`);
 }
+
+export function patchCinema(id, data) {
+  return http.patch(`/cinemas/${id}`, data);
+}
+
+export function deleteCinema(id) {
+  return http.delete(`/cinemas/${id}`);
+}

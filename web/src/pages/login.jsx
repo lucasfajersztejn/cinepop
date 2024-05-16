@@ -3,7 +3,6 @@ import { useForm } from "react-hook-form";
 import { useNavigate } from "react-router-dom";
 import AuthContext from "../context/auth.context";
 import bgCinema from "../assets/images/bgLogin.jpg"
-import bgCinemaLogin from "../assets/images/bgCinemaLogin.png"
 import bgCinemaLoginFinger from "../assets/images/bgCinemaLoginFingerTwo.jpeg"
 
 
