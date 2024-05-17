@@ -9,7 +9,6 @@ import MovieDetail from "./pages/movieDetail";
 import Cinemas from "./pages/cinemas";
 import CinemaDetail from "./pages/cinemaDetail";
 import Login from "./pages/login";
-import Searcher from "./pages/searcher";
 
 function App() {
 
@@ -32,7 +31,6 @@ function App() {
         <Route path="/cinemas" element={<Cinemas />}/>
         <Route path="/cinemas/:id" element={<CinemaDetail />}/>
         <Route path="/admin/login" element={<Login />}/>
-        <Route path="/searcher" element={<Searcher />}/>
       </Routes>
 
       <Footer />

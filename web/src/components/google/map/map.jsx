@@ -7,8 +7,9 @@ function Map({ className, center, markers, description, image }) {
   const infoWindowRef = useRef(null);
 
   useEffect(() => {
+
     const googleMap = new window.google.maps.Map(mapRef.current, {
-      center: center,
+      center,
       zoom: 15,
     });
 

@@ -92,7 +92,7 @@
     "address": "Plaza Cibeles, 1, Retiro, 28014 Madrid",
     "location": {
       "type": "Point",
-      "coordinates": [40.419024035391345, -3.692122738223191]
+      "coordinates": [-3.692122738223191, 40.419024035391345]
     }
   },
   {

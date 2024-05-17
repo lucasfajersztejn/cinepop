@@ -57,12 +57,12 @@ export function deleteMovie(id) {
 }
 
 // Cinemas
-export function getCinemas() {
-  return http.get("/cinemas");
-}
-
-export function getCinemasFiltered(lat, lng, address) {
-  return http.get(`/cinemas?lat=${lat}&lng=${lng}&address=${address}`);
+export function getCinemas(lat, lng) {
+  const criterial = {}
+  if (lat) criterial.lat = lat;
+  if (lng) criterial.lng = lng;
+  
+  return http.get("/cinemas", { params: criterial });
 }
 
 export function getCinemasDetails(id) {
