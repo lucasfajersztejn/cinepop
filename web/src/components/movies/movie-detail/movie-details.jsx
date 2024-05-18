@@ -3,17 +3,38 @@ import "./movie-details.css";
 import ReactDOM from "react-dom";
 import "react-responsive-carousel/lib/styles/carousel.min.css";
 import { Carousel } from "react-responsive-carousel";
-import { useContext, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import AuthContext from "../../../context/auth.context";
 import { useNavigate } from "react-router-dom";
 import { deleteMovie } from "../../../services/api.service";
 import EditMovie from "./edit-movie";
 
-function MovieDetails({ movie }) {
+function MovieDetails({ movie, cinemas }) {
   const { user } = useContext(AuthContext)
   const [visibleActors, setVisibleActors] = useState(5);
   const [visibleEdit, setVisibleEdit] = useState(true);
+  const [showCinemas, setShowCinemas] = useState([]);
   const navigate = useNavigate();
+
+  useEffect(() => {
+    const targetDate = new Date("2024-03-15");
+    const endDate = new Date("2024-05-15");
+    const movieAverage = parseInt(movie.vote_average);
+    const releaseDate = new Date(movie.release_date);
+    const filteredCinemas = cinemas.filter((cinema) => {
+      if (cinema.priority === 1) {
+        return releaseDate >= targetDate && releaseDate <= endDate;
+      } else if (cinema.priority === 2) {
+        return releaseDate >= targetDate && releaseDate <= endDate && movieAverage <= 6;
+      } else if (cinema.priority === 3) {
+        return releaseDate >= targetDate && releaseDate <= endDate && movieAverage >= 7;
+      } else if (cinema.priority === 4) {
+        return movieAverage >= 8;
+      }
+      return false;
+    });
+    setShowCinemas(filteredCinemas);
+  }, [cinemas, movie]);
 
   const handleLoadMoreActors = () => {
     setVisibleActors(prev => prev + 5);
@@ -146,7 +167,17 @@ function MovieDetails({ movie }) {
             </div>
           </div>
 
+          
+
         </div>
+
+        <div className="border border-slate-400 bg-slate-800 rounded-xl m-5">
+            {showCinemas.map((cinema) => (
+              <div className="p-5">
+                {cinema.name}
+              </div>
+            ))}
+          </div>
 
       </section>
     </>

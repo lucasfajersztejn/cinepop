@@ -5,6 +5,8 @@ import movieLoader from "../../../assets/loaders/loader_claqueta.gif";
 import { useNavigate, useSearchParams } from "react-router-dom";
 import Map from "../../google/map/map";
 import AutocompleteInput from "../../google/autocomplete/autocomplete-input";
+import recommended from "../../../assets/images/recommended .png"
+
 
 function CinemasList() {
   const [cinemas, setCinemas] = useState([]);
@@ -24,7 +26,6 @@ function CinemasList() {
       try {
         const { data: cinemas } = await getCinemas(lat, lng);
         setCinemas(cinemas);
-        console.log(cinemas)
         setIsLoading(false);
       } catch (error) {
         if (error.response?.status == 404) navigate("/");
@@ -43,7 +44,6 @@ function CinemasList() {
 
   const handleClearInput = () => {
     setSearchParams({});
-    console.log(autoCompleteInputRf)
     if (autoCompleteInputRf.current) {
       autoCompleteInputRf.current.value = "";
     }

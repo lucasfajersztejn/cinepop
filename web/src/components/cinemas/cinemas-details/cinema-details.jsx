@@ -94,7 +94,7 @@ function CinemaDetails({
           </div>
 
           <div className="">
-            <FilmsInTheaters movies={movies} id={id} priority={priority}/>
+            <FilmsInTheaters movies={movies} id={id} priority={priority} web={web}/>
           </div>
 
         </div>
