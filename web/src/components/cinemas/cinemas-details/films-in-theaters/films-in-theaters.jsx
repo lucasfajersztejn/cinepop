@@ -20,7 +20,8 @@ function FilmsInTheaters({ movies, id, priority, web }) {
   }, [selectedMoviePrices]);
 
   const targetDate = new Date("2024-03-15");
-  const endDate = new Date("2024-05-15");
+  const mediumCinemaDate = new Date("2023-12-31");
+  const endDate = new Date("2024-05-21");
   const filteredMovies = movies.filter((movie) => {
     const movieAverage = parseInt(movie.vote_average);
     const releaseDate = new Date(movie.release_date);
@@ -29,9 +30,9 @@ function FilmsInTheaters({ movies, id, priority, web }) {
       } else if (priority === 2) {
         return releaseDate >= targetDate && releaseDate <= endDate && movieAverage <= 6 
       } else if (priority === 3) {
-        return releaseDate >= targetDate && releaseDate <= endDate && movieAverage >= 7
-      } else if (priority === 4) {
         return movieAverage >= 8
+      } else if (priority === 4) {
+        return releaseDate <= mediumCinemaDate 
       }
   });
 
@@ -264,7 +265,7 @@ function FilmsInTheaters({ movies, id, priority, web }) {
         </div>
       ))}
 
-      <div className="bg-slate-700/70 flex flex-col justify-evenly rounded-lg bottom-0 w-full mt-10">
+      <div className="bg-slate-700/70 flex flex-col sticky justify-evenly rounded-lg bottom-0 w-full mt-10">
         {filteredMovies.map((filterMovie, index) => (
           <div key={filterMovie.idMovie} className="">
             {Object.keys(selectedMoviePrices).includes(String(filterMovie.idMovie)) ? (

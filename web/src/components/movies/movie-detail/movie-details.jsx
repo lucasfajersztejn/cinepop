@@ -5,9 +5,10 @@ import "react-responsive-carousel/lib/styles/carousel.min.css";
 import { Carousel } from "react-responsive-carousel";
 import { useContext, useEffect, useState } from "react";
 import AuthContext from "../../../context/auth.context";
-import { useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { deleteMovie } from "../../../services/api.service";
 import EditMovie from "./edit-movie";
+import recommended from "../../../assets/images/recommended.png"
 
 function MovieDetails({ movie, cinemas }) {
   const { user } = useContext(AuthContext)
@@ -18,6 +19,7 @@ function MovieDetails({ movie, cinemas }) {
 
   useEffect(() => {
     const targetDate = new Date("2024-03-15");
+    const mediumCinemaDate = new Date("2023-12-31");
     const endDate = new Date("2024-05-15");
     const movieAverage = parseInt(movie.vote_average);
     const releaseDate = new Date(movie.release_date);
@@ -27,9 +29,9 @@ function MovieDetails({ movie, cinemas }) {
       } else if (cinema.priority === 2) {
         return releaseDate >= targetDate && releaseDate <= endDate && movieAverage <= 6;
       } else if (cinema.priority === 3) {
-        return releaseDate >= targetDate && releaseDate <= endDate && movieAverage >= 7;
+        return movieAverage >= 8
       } else if (cinema.priority === 4) {
-        return movieAverage >= 8;
+        return releaseDate <= mediumCinemaDate 
       }
       return false;
     });
@@ -141,10 +143,11 @@ function MovieDetails({ movie, cinemas }) {
 
             {!visibleEdit && <EditMovie movie={movie}/>}
             
+            {/* Actors */}
             <div className="border border-slate-400 bg-slate-800 rounded-xl">
               <div className="md:flex flex-wrap justify-center items-center">
                 {movie.cast.slice(0, visibleActors).map((actor, index) => (
-                  <div key={index} className="flex flex-col items-center gap-2 md:ms-5 mt-2">
+                  <a key={index} href={`https://www.google.com/search?q=${actor.name.split(" ").join("+")}`} className="flex flex-col items-center gap-2 md:ms-5 mt-2" target="_blank">
                     <img
                       className="md:rounded-xl shadow-lg h-32 p-1"
                       src={`https://image.tmdb.org/t/p/original/${actor.profile_path}`}
@@ -152,9 +155,8 @@ function MovieDetails({ movie, cinemas }) {
                     />
                     <span className="text-white text-lg">{actor.name}</span>
                     <span className="text-white text-lg">{actor.character}</span>
-                    
-                  </div>
-                ))}
+                  </a>
+              ))}
               </div>
               <div className="flex justify-center gap-5 my-2">
                 {visibleActors <= movie.cast.length && (
@@ -166,18 +168,19 @@ function MovieDetails({ movie, cinemas }) {
               </div>
             </div>
           </div>
-
-          
-
         </div>
 
-        <div className="border border-slate-400 bg-slate-800 rounded-xl m-5">
+        <div className=" flex flex-col  gap-5 justify-center items-center border border-slate-400 bg-slate-800 rounded-xl p-5 m-5">
+          <h3 className="text-white font-bold text-4xl shadow-lg underline my-5 ">CINES</h3>
+          <div className="flex flex-wrap justify-center items-center gap-5">
             {showCinemas.map((cinema) => (
-              <div className="p-5">
+              <Link to={`/cinemas/${cinema.id}`} className="flex flex-wrap justify-center items-center text-white h-20 gap-2 w-full md:w-80 border-2 border-slate-500 hover:bg-slate-400/50 bg-slate-500/50 shadow-lg rounded-md p-1 mb-4">
                 {cinema.name}
-              </div>
+                {cinema.priority === 1 ? <img src={recommended} className="h-12" alt="recommended image" /> : ""}
+              </Link> 
             ))}
           </div>
+        </div>
 
       </section>
     </>

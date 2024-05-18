@@ -5,7 +5,6 @@ import movieLoader from "../../../assets/loaders/loader_claqueta.gif";
 import { useNavigate, useSearchParams } from "react-router-dom";
 import Map from "../../google/map/map";
 import AutocompleteInput from "../../google/autocomplete/autocomplete-input";
-import recommended from "../../../assets/images/recommended .png"
 
 
 function CinemasList() {
