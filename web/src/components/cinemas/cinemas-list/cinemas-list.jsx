@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { getCinemas } from "../../../services/api.service";
 import CinemasCard from "../cinemas-card/cinemas-card";
 import movieLoader from "../../../assets/loaders/loader_claqueta.gif";
@@ -10,6 +10,7 @@ function CinemasList() {
   const [cinemas, setCinemas] = useState([]);
   const [isLoading, setIsLoading] = useState(true);
   const navigate = useNavigate();
+  const autoCompleteInputRf = useRef();
 
   const [searchParams, setSearchParams] = useSearchParams();
   const [locations, setLocations] = useState([]);
@@ -18,8 +19,6 @@ function CinemasList() {
   const lng = searchParams.get('lng') || 0
   const address = searchParams.get('address')
 
-  console.log(lat)
-  console.log(lng)
   useEffect(() => {
     async function fetchCinemas() {
       try {
@@ -31,7 +30,6 @@ function CinemasList() {
         if (error.response?.status == 404) navigate("/");
       }
     }
-    console.info(123);
     fetchCinemas();
   }, [searchParams]);
 
@@ -43,13 +41,12 @@ function CinemasList() {
     });
   };
 
-  const handleCinemasUpdate = (cine) => {
-    const locations = cine.map(({ name, location }) => ({
-      title: name,
-      lat: location[0],
-      lng: location[1]
-    }));
-    setLocations(locations);
+  const handleClearInput = () => {
+    setSearchParams({});
+    console.log(autoCompleteInputRf)
+    if (autoCompleteInputRf.current) {
+      autoCompleteInputRf.current.value = "";
+    }
   };
 
   return (
@@ -58,17 +55,14 @@ function CinemasList() {
         <img src={movieLoader} alt="Loader movie"/>
       ) : (
         <div>
-        <AutocompleteInput className={""} onPlaceChange={handlePlaceChange} />
-        <button onClick={() => setSearchParams({})}>Borrar</button>
-        {/* <Map
-        className="mt-2 rounded-xl shadow-lg"
-        center={{
-          lat: parseFloat(lat),
-          lng: parseFloat(lng),
-        }}
-        markers={locations}
-      /> */}
-        
+          <div className="flex gap-2 justify-center items-center">
+            <AutocompleteInput ref={autoCompleteInputRf} className={""} onPlaceChange={handlePlaceChange} />
+            <button 
+              onClick={handleClearInput}
+              className="text-white font-semibold bg-red-500 hover:bg-red-400 w-8 shadow-lg py-1 rounded-md mt-5"
+            ><box-icon name='x' color='#ffffff' ></box-icon>
+            </button>
+          </div>
         {cinemas.map((cinema, index) => (
           <div className="mt-2 lg:mt-5 mx-[10%] " key={cinema.id}>
             <div className={ index % 2 === 0 ? "md:flex gap-4 mt-2" : "mt-2 md:flex md:flex-row-reverse gap-4" }>
@@ -77,13 +71,13 @@ function CinemasList() {
                   key={index}
                   className="mt-2 rounded-xl shadow-lg"
                   center={{
-                    lat: parseFloat(cinema.location[0]),
-                    lng: parseFloat(cinema.location[1]),
+                    lat: parseFloat(cinema.location.coordinates[1]),
+                    lng: parseFloat(cinema.location.coordinates[0]),
                   }}
                   markers={{  
                     name: cinema.name, 
-                    lat: parseFloat(cinema.location[0]), 
-                    lng: parseFloat(cinema.location[1]) 
+                    lat: parseFloat(cinema.location.coordinates[1]), 
+                    lng: parseFloat(cinema.location.coordinates[0]) 
                   }}
                   description={cinema.address}
                   image={cinema.bgAvatar}

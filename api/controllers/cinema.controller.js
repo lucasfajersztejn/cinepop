@@ -23,7 +23,7 @@ module.exports.list = (req, res, next) => {
           type: "Point",
           coordinates: [lng, lat],
         },
-        $maxDistance: 20000,
+        $maxDistance: 2000,
       },
     };
   }
@@ -31,7 +31,6 @@ module.exports.list = (req, res, next) => {
   Cinema.find(criterial)
     .populate("timesheets")
     .then((cinemas) => {
-      console.log(cinemas);
       res.json(cinemas)
     })
     .catch((err) =>

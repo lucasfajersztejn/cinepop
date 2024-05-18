@@ -5,8 +5,10 @@ const autocompleteOptions = {
   type: ["address"]
 };
 
-function AutocompleteInput({ className, onPlaceChange }) {
-  const autocompleteInputRef = useRef();
+function AutocompleteInput({ className, onPlaceChange, ref }) {
+  console.log(ref);
+  const autocompleteInputRef = ref || useRef();
+  
 
   useEffect(() => {
     const autocomplete = new window.google.maps.places.Autocomplete(autocompleteInputRef.current, autocompleteOptions);
@@ -28,8 +30,8 @@ function AutocompleteInput({ className, onPlaceChange }) {
   }, []);
 
   return (
-    <div className={`form-floating ${className}`}>
-      <input ref={autocompleteInputRef} type="text" className="form-control" id="autocomplete-input" placeholder="Calle de Guzmán el Bueno 23" />
+    <div>
+      <input ref={autocompleteInputRef} type="text" className="p-1 w-52 md:w-[500px] rounded-lg shadow-lg mt-4" id="autocomplete-input" placeholder="Calle de Guzmán el Bueno 23" />
     </div>
   )
 }
