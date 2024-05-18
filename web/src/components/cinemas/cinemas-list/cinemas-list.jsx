@@ -25,7 +25,7 @@ function CinemasList() {
       try {
         const { data: cinemas } = await getCinemas(lat, lng);
         setCinemas(cinemas);
-        console.log
+        console.log(cinemas)
         setIsLoading(false);
       } catch (error) {
         if (error.response?.status == 404) navigate("/");
@@ -77,13 +77,13 @@ function CinemasList() {
                   key={index}
                   className="mt-2 rounded-xl shadow-lg"
                   center={{
-                    lat: parseFloat(cinema.location[1]),
-                    lng: parseFloat(cinema.location[0]),
+                    lat: parseFloat(cinema.location[0]),
+                    lng: parseFloat(cinema.location[1]),
                   }}
                   markers={{  
                     name: cinema.name, 
-                    lat: parseFloat(cinema.location[1]), 
-                    lng: parseFloat(cinema.location[0]) 
+                    lat: parseFloat(cinema.location[0]), 
+                    lng: parseFloat(cinema.location[1]) 
                   }}
                   description={cinema.address}
                   image={cinema.bgAvatar}
