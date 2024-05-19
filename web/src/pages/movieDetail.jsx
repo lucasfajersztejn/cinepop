@@ -28,7 +28,7 @@ function MovieDetail() {
   }, [id])
 
   return (
-    <div className="mt-40 lg:mt-44 xl:mt-48 ">
+    <div className="">
       {isLoading ? (
         <img src={movieLoader} alt="Loader movie"/>
       ) : (

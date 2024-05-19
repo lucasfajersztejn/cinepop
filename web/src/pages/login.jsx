@@ -22,7 +22,7 @@ function Login() {
   }
 
   return (
-    <div className="mt-40 lg:mt-44 xl:mt-48 mx-[5%] h-[300px] md:h-[400px] lg:h-[500px] xl:h-[600px] flex flex-col md:flex-row justify-center items-center">
+    <div className="h-[300px] md:h-[400px] lg:h-[500px] xl:h-[600px] flex flex-col md:flex-row justify-center items-center">
       <form 
         data-testid="login-form" 
         className="flex flex-col justify-center bg-no-repeat bg-cover border-2 h-60 lg:w-80 lg:h-80 xl:w-96 xl:h-96 border-slate-400 md:border-e-0 bg-slate-800 rounded-xl md:rounded-r-none md:rounded-l-xl p-4 mt-3" 

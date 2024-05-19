@@ -170,13 +170,13 @@ function MovieDetails({ movie, cinemas }) {
           </div>
         </div>
 
-        <div className=" flex flex-col  gap-5 justify-center items-center border border-slate-400 bg-slate-800 rounded-xl p-5 m-5">
+        <div className=" flex flex-col gap-5 justify-center items-center border border-slate-400 bg-slate-800 rounded-xl  p-5 m-5">
           <h3 className="text-white font-bold text-4xl shadow-lg underline my-5 ">CINES</h3>
           <div className="flex flex-wrap justify-center items-center gap-5">
             {showCinemas.map((cinema) => (
-              <Link to={`/cinemas/${cinema.id}`} className="flex flex-wrap justify-center items-center text-white h-20 gap-2 w-full md:w-80 border-2 border-slate-500 hover:bg-slate-400/50 bg-slate-500/50 shadow-lg rounded-md p-1 mb-4">
+              <Link to={`/cinemas/${cinema.id}`} key={cinema.id} className="flex flex-wrap justify-center items-center text-white h-24 gap-2 w-full md:w-80 border-2 border-slate-500 hover:bg-slate-400/50 bg-slate-500/50 shadow-lg rounded-md p-1 mb-4">
                 {cinema.name}
-                {cinema.priority === 1 ? <img src={recommended} className="h-12" alt="recommended image" /> : ""}
+                {cinema.priority === 1 ? <img src={recommended} className="h-8 md:h-12" alt="recommended image" /> : ""}
               </Link> 
             ))}
           </div>

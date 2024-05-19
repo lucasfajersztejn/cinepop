@@ -9,7 +9,8 @@ function FilmsInTheaters({ movies, id, priority, web }) {
   const [selectedMoviePrices, setSelectedMoviePrices] = useState({});
   const [availableHours, setAvailableHours] = useState([]);
   const [ticketPrice, setTicketPrice] = useState(0);
-  const [combo, setCombo] = useState(0);
+  const [combo, setCombo] = useState(5);
+  const [visibleMovies, setVisibleMovies] = useState(5);
   const [totalPrice, setTotalPrice] = useState(0);
   const [hourSelected, setHourSelected] = useState({});
 
@@ -145,6 +146,14 @@ function FilmsInTheaters({ movies, id, priority, web }) {
     }
     return totalTicketsPrice;
   };
+
+  const handleLoadMoreMovies = () => {
+    setVisibleMovies(prev => prev + 5);
+  }
+
+  const handleLessMovies = () => {
+    setVisibleMovies(prev => prev - 5);
+  }
   
   return (
     <div className="flex flex-col gap-2 p-3 justify-start border border-slate-500 bg-slate-800/70 rounded-xl mt-4">
@@ -192,7 +201,7 @@ function FilmsInTheaters({ movies, id, priority, web }) {
         </select>
       </div>
 
-      {filteredMovies.map((filterMovie) => (
+      {filteredMovies.slice(0, visibleMovies).map((filterMovie) => (
         <div
         key={filterMovie.idMovie}
         className="flex flex-col lg:flex-row items-center lg:gap-5 mt-3"
@@ -264,6 +273,15 @@ function FilmsInTheaters({ movies, id, priority, web }) {
           </div>
         </div>
       ))}
+
+      <div className="flex justify-center gap-5 sm:gap-0">
+        {visibleMovies <= filteredMovies.length && (
+          <button className="bg-red-500 shadow-lg text-white px-4 py-2 sm:mx-20 w-[50%] rounded-md mt-4 hover:bg-red-400 hover:text-black hover:font-bold" onClick={handleLoadMoreMovies}>MÁS PELÍCULAS</button>
+        )}
+        {visibleMovies > 5 && (
+          <button className="bg-red-500 shadow-lg text-white px-4 py-2 sm:mx-20 w-[50%] rounded-md mt-4 hover:bg-red-400 hover:text-black hover:font-bold" onClick={handleLessMovies}>MENOS PELÍCULAS</button>
+        )} 
+      </div> 
 
       <div className="bg-slate-700/70 flex flex-col sticky justify-evenly rounded-lg bottom-0 w-full mt-10">
         {filteredMovies.map((filterMovie, index) => (

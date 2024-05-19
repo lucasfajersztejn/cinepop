@@ -44,25 +44,25 @@ function MoviesCarrousel() {
         <img src={loadingImg} alt="Loading image" />
       ) : (
 
-      <div>
+      <div className="mx-[5%]">
       {moviesFiltered.slice(0, visibleMovies).map((movie) => (
 
-        <div key={movie.id} className=" flex flex-wrap lg:min-h-[455px] lg:max-h-[502px] sm:flex-nowrap gap-0 sm:gap-3 lg:gap-12 items-center my-3 rounded-3xl bg-slate-500"> 
+        <div key={movie.id} className="flex flex-wrap lg:min-h-[455px] lg:max-h-[502px] lg:flex-nowrap gap-0 lg:gap-12 items-center mt-3 mb-5 rounded-3xl bg-slate-500"> 
           <div className=""> 
             <img
-              className="rounded-t-3xl sm:rounded-l-3xl sm:rounded-tr-none w-96 sm:min-h-[455px] shadow-lg object-cover "
+              className="rounded-t-3xl lg:rounded-l-3xl lg:rounded-tr-none lg:w-96 lg:min-h-[455px] shadow-lg object-cover "
               src={`https://image.tmdb.org/t/p/original/${movie.poster_path}`}
               alt={`poster of ${movie.title}`}
             />
           </div>
 
-          <div className="w-full mx-5 sm:mx-0 sm:w-[60%] sm:-order-none flex flex-col justify-start sm:justify-between gap-3 py-5 text-sm sm:text-lg relative"> 
-            <h3 className="text-base text-center sm:text-start sm:text-2xl uppercase text-white font-black max-w-fit sm:max-w-[50%]">{movie.title}</h3>
+          <div className="w-full mx-5 lg:mx-0 lg:w-[60%] lg:-order-none flex flex-col justify-start lg:justify-between gap-3 py-5 text-lg lg:text-lg relative"> 
+            <h3 className="text-base text-center lg:text-start lg:text-2xl uppercase text-white font-black max-w-fit lg:max-w-[50%]">{movie.title}</h3>
             <p className="line-clamp-2 text-white text-base">{movie.overview}</p>
 
             <div>
               <hr className="mb-1"/>
-              <ul className="flex flex-col items-center sm:flex-row gap-0 sm:gap-5 uppercase text-white text-base font-semibold">
+              <ul className="flex flex-col items-center lg:flex-row gap-0 lg:gap-5 uppercase text-white text-base font-semibold">
                 <p className="">Duración: {movie.runTime} mins</p>
                 {movie.genre_ids.map((genre, index) => (
                   <li className="" key={index}>{genre}</li>
@@ -72,8 +72,8 @@ function MoviesCarrousel() {
             </div>
           </div>
           
-
-          <div className="uppercase w-full border-t border-dashed border-separate sm:border-l sm:border-t-0 sm:w-1/2 lg:min-h-[455px] rounded-b-3xl sm:rounded-e-3xl sm:rounded-bl-none md:w-[25%] lg:w-[30%] gap-10 lg:gap-4 xl:gap-10 flex flex-col items-center lg:justify-center text-sm p-4 bg-slate-700 text-white">
+{/**/}
+          <div className="uppercase w-full border-t border-dashed border-separate lg:border-l lg:border-t-0 h-[100%]  rounded-b-3xl lg:rounded-e-3xl lg:rounded-bl-none lg:w-[30%] lg:min-h-[455px] 2xl:h-[474px] gap-10 lg:gap-4 xl:gap-10  flex flex-col items-center lg:justify-center text-lg p-4 bg-slate-700 text-white">
             <p className="text-xl text-center"><box-icon name='camera-movie' color='#ffffff' ></box-icon> <u className="font-semibold">Director :</u> {movie.director.name}</p>
             <ul className="text-lg"><box-icon name='star' color="#ffffff"></box-icon> <u className=" text-xl font-semibold">Artistas :</u>
               <li>{movie.cast[0].name}</li>
@@ -86,12 +86,10 @@ function MoviesCarrousel() {
             </div>
           </div>
 
-             
         </div>
-          
         ))}
 
-        <div className="flex justify-center gap-5 sm:gap-0">
+        <div className="flex justify-center gap-5 md:gap-0 mb-5">
           {visibleMovies <= moviesFiltered.length && (
             <button className="bg-red-500 shadow-lg text-white px-4 py-2 sm:mx-20 w-[50%] rounded-md mt-4 hover:bg-red-400 hover:text-black hover:font-bold" onClick={handleLoadMoreMovies}>MÁS PELÍCULAS</button>
           )}

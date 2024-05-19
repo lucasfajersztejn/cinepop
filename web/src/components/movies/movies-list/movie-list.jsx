@@ -22,7 +22,7 @@ function MovieList() {
 
   return (
     <div>
-      <div className="grid mt-28 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4 md:mt-40 lg:mt-44 xl:mt-48 m-10">
+      <div className="grid md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4 m-10">
         {movies.map((movie) => (
           <div key={movie.idMovie} className=" rounded-lg"><MovieItem movie={movie}/></div>
         ))}
