@@ -44,8 +44,7 @@ function CinemaDetails({
   }
 
   return (
-    <section>
-        <div>
+    <section className="mx-[5%] mb-5">
           <div
             className="relative bg-cover bg-center h-28 md:h-40 lg:h-64 xl:h-96 opacity-[40%] rounded-t-xl"
             style={{ backgroundImage: `url(${bgAvatar})` }}
@@ -96,8 +95,6 @@ function CinemaDetails({
           <div className="">
             <FilmsInTheaters movies={movies} id={id} priority={priority} web={web}/>
           </div>
-
-        </div>
     </section>
   );
 }
