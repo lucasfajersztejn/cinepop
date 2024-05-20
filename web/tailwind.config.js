@@ -9,6 +9,9 @@ export default {
     extend: {
       screens: {
         "3xl":"1900px"
+      },
+      fontFamily: {
+        googleFontFooter: ["Great Vibes"]
       }
     },
   },

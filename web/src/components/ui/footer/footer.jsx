@@ -1,3 +1,4 @@
+import { Link } from "react-router-dom";
 import footerImage from "../../../assets/images/1.png"
 
 
@@ -6,9 +7,11 @@ function Footer() {
 
     <footer className="bg-black mt-auto flex-shrink-0">
       <div className="mx-auto max-w-screen-xl px-4 py-8 sm:px-6 lg:px-8">
-        <div className="flex items-center justify-between w-full">
-          <img src={footerImage} className="h-24" alt="Popcorn image" />
+        <div className="flex items-center justify-center md:justify-between w-full">
+          <Link to={"/"}><img src={footerImage} className="h-24 hidden md:block" alt="Popcorn image" /></Link>
+          <a href="https://www.linkedin.com/in/lucas-fajersztejn-25bb93163/" target="_blank"><p className="font-googleFontFooter text-white hidden md:block text-xl md:text-4xl">Lucas Fajersztejn</p></a>
           <div className="flex flex-col md:flex-row md:gap-4 justify-center items-center">
+            <a href="https://www.linkedin.com/in/lucas-fajersztejn-25bb93163/" target="_blank"><p className="font-googleFontFooter text-white md:hidden text-2xl mb-2">Lucas Fajersztejn</p></a>
             <div className="flex justify-center items-center gap-4">
               <a href="https://www.linkedin.com/in/lucas-fajersztejn-25bb93163/" target="_blank"><box-icon name='linkedin-square' type='logo' color='#ffffff' ></box-icon></a>
               <a href="https://github.com/lucasfajersztejn" target="_blank"><box-icon name='github' type='logo' color='#ffffff' ></box-icon></a>
