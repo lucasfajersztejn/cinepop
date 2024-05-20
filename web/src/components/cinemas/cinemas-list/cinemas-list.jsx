@@ -11,7 +11,7 @@ function CinemasList() {
   const [cinemas, setCinemas] = useState([]);
   const [isLoading, setIsLoading] = useState(true);
   const navigate = useNavigate();
-  const autoCompleteInputRf = useRef();
+  const autoCompleteInputRf = useRef('autoCompleteInput');
 
   const [searchParams, setSearchParams] = useSearchParams();
   const [locations, setLocations] = useState([]);
@@ -41,6 +41,7 @@ function CinemasList() {
     });
   };
 
+  console.info({autoCompleteInputRf})
   const handleClearInput = () => {
     setSearchParams({});
     if (autoCompleteInputRf.current) {
@@ -55,11 +56,12 @@ function CinemasList() {
       ) : (
         <div>
           <div className="flex gap-2 justify-center items-center">
-            <AutocompleteInput ref={autoCompleteInputRf} className={""} onPlaceChange={handlePlaceChange} />
+            <AutocompleteInput reference={autoCompleteInputRf} className={""} onPlaceChange={handlePlaceChange} />
             <button 
               onClick={handleClearInput}
               className="text-white font-semibold bg-red-500 hover:bg-red-400 w-8 shadow-lg py-1 rounded-md mt-5"
-            ><box-icon name='x' color='#ffffff' ></box-icon>
+            >
+              <box-icon name='x' color='#ffffff' ></box-icon>
             </button>
           </div>
         {cinemas.map((cinema, index) => (
