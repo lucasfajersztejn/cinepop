@@ -2,7 +2,6 @@ import { useEffect, useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 import { getCinemas, getMovieDetails } from "../services/api.service";
 import MovieDetails from "../components/movies/movie-detail/movie-details";
-import movieLoader from "../assets/loaders/loader_claqueta.gif";
 
 function MovieDetail() {
   const { id } = useParams();
@@ -30,7 +29,18 @@ function MovieDetail() {
   return (
     <div className="">
       {isLoading ? (
-        <img src={movieLoader} alt="Loader movie"/>
+        <div
+          className="flex flex-col bg-neutral-300 w-56 h-64 animate-pulse rounded-xl p-4 gap-4 mt-[50%]"
+        >
+          <div className="bg-neutral-400/50 w-full h-32 animate-pulse rounded-md"></div>
+          <div className="flex flex-col gap-2">
+            <div className="bg-neutral-400/50 w-full h-4 animate-pulse rounded-md"></div>
+            <div className="bg-neutral-400/50 w-4/5 h-4 animate-pulse rounded-md"></div>
+            <div className="bg-neutral-400/50 w-full h-4 animate-pulse rounded-md"></div>
+            <div className="bg-neutral-400/50 w-2/4 h-4 animate-pulse rounded-md"></div>
+          </div>
+        </div>
+
       ) : (
         <MovieDetails movie={movie} cinemas={cinemas}/>
       )}

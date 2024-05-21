@@ -1,10 +1,10 @@
 
 function CastCards({ name, character, profile_path}) {
   return (
-    <div className="flex gap-5 items-center mb-5">
+    <div className="flex flex-wrap gap-5 items-center mb-5">
       <div className='avatar'>
           <div className='w-10 sm:w-20 rounded'>
-              <img src={`https://image.tmdb.org/t/p/original/${profile_path}`} alt={`photo of ${name}`} />
+            <img src={`https://image.tmdb.org/t/p/original/${profile_path}`} alt={`photo of ${name}`} />
           </div>
       </div>
 

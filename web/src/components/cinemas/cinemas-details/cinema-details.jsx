@@ -72,7 +72,7 @@ function CinemaDetails({
               </div>
 
               {user && 
-                <div className="border h-24 gap-3 border-slate-300 w-44 mt-3 shadow-lg bg-slate-600 rounded-xl flex flex-col justify-center items-center">
+                <div className="border h-24 gap-3 border-slate-300 w-44 md:w-full mt-3 shadow-lg bg-slate-600 rounded-xl flex flex-col mx-auto md:flex-row md:gap-5 justify-center items-center">
                   <button className="text-white bg-red-500 shadow-lg px-4 py-1 rounded-md" onClick={handleDeleteCinema}>Borrar cine</button>
                   <button className="text-white bg-red-500 shadow-lg px-4 py-1 rounded-md" onClick={handleVisibleEdit}>Editar cine</button>
                 </div>

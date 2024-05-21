@@ -1,14 +1,18 @@
 import { Link } from "react-router-dom";
 
 function MovieItem({ movie }) {
+
+  const premiereDate = new Date("2024-05-05")
+
   return (
     <>
-      <Link className="relative  w-full rounded-3xl min-h-[340px] md:col-span-2 p-1 group overflow-hidden" to={`/movies/${movie.id}`}>
+      <Link className="relative w-full rounded-3xl min-h-[340px] md:col-span-2 p-1 group overflow-hidden" to={`/movies/${movie.id}`}>
         <figure className=" w-full rounded-3xl overflow-hidden">
           <img className=" w-full h-full min-h-[400px]  md:min-h-[450px] lg:min-h-[450px] xl:min-h-[523px] 2xl:min-h-[712px] 3xl:min-h-[810px] object-cover group-hover:scale-105 group-hover:brightness-110 transition-all duration-300" src={`https://image.tmdb.org/t/p/original/${movie.poster_path}`} alt="movie poster" loading="lazy" />
         </figure>
         
         <div className="p-6 rounded-3xl bg-red-900 shadow-lg border-t border-dashed text-white hover:dark:bg-red-900/50 hover:rotate-6 hover:mt-4 hover:me-4 hover:xl:mt-3 hover:2xl:mt-6 hover:3xl:mt-10">
+          {new Date(movie.release_date) >= premiereDate ? <h3 className="text-red-700 bg-red-200 rounded-xl p-2 font-bold text-3xl md:text-2xl text-center mb-5">PRÓXIMAMENTE!</h3> : "" }
           <h3 className="font-bold text-lg ">{movie.title}</h3>
           <p className="line-clamp-3 mt-4">{movie.overview}</p>
           <ul className="flex gap-1 flex-wrap text-sm mt-4">

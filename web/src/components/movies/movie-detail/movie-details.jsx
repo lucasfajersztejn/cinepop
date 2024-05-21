@@ -12,7 +12,7 @@ import recommended from "../../../assets/images/recommended.png"
 
 function MovieDetails({ movie, cinemas }) {
   const { user } = useContext(AuthContext)
-  const [visibleActors, setVisibleActors] = useState(5);
+  const [visibleActors, setVisibleActors] = useState(4);
   const [visibleEdit, setVisibleEdit] = useState(true);
   const [showCinemas, setShowCinemas] = useState([]);
   const navigate = useNavigate();
@@ -39,11 +39,11 @@ function MovieDetails({ movie, cinemas }) {
   }, [cinemas, movie]);
 
   const handleLoadMoreActors = () => {
-    setVisibleActors(prev => prev + 5);
+    setVisibleActors(prev => prev + 4);
   }
 
   const handleLoadLessActors = () => {
-    setVisibleActors(prev => prev - 5);
+    setVisibleActors(prev => prev - 4);
   }
 
   const handleVisibleEdit = () => {
@@ -51,6 +51,10 @@ function MovieDetails({ movie, cinemas }) {
   }
 
   const handleDeleteMovie = async () => {
+    if (!window.confirm('estás Seguro?')) {
+      return
+    }
+    
     try {
       await deleteMovie(movie.id);
       navigate("/movies")
@@ -135,8 +139,8 @@ function MovieDetails({ movie, cinemas }) {
           <div className="flex flex-col gap-2 lg:w-full xl:w-full mt-5">
             
             {visibleEdit &&
-            <div className="border border-slate-400 bg-slate-800 rounded-xl p-4">
-              <h2 className="text-white font-semibold underline text-xl lg:text-4xl mb-3">{movie.title}</h2>
+            <div className="flex flex-col gap-2 lg:gap-4 xl:gap-6 border border-slate-400 bg-slate-800 rounded-xl p-6 md:p-8 xl:p-12">
+              <h2 className="text-white font-semibold underline text-xl md:text-2xl lg:text-4xl mb-3">{movie.title}</h2>
               <h2 className="text-white md:text-lg xl:text-xl">{movie.overview}</h2>
             </div>
             }
@@ -145,7 +149,7 @@ function MovieDetails({ movie, cinemas }) {
             
             {/* Actors */}
             <div className="border border-slate-400 bg-slate-800 rounded-xl">
-              <div className="md:flex flex-wrap justify-center items-center">
+              <div className="md:flex flex-wrap justify-evenly items-center mt-4">
                 {movie.cast.slice(0, visibleActors).map((actor, index) => (
                   <a key={index} href={`https://www.google.com/search?q=${actor.name.split(" ").join("+")}`} className="flex flex-col items-center gap-2 md:ms-5 mt-2" target="_blank">
                     <img
@@ -158,7 +162,7 @@ function MovieDetails({ movie, cinemas }) {
                   </a>
               ))}
               </div>
-              <div className="flex justify-center gap-5 my-2">
+              <div className="flex justify-center gap-5 my-5">
                 {visibleActors <= movie.cast.length && (
                   <button className="text-white bg-red-500 shadow-lg px-4 py-1 rounded-md" onClick={handleLoadMoreActors}>Más artistas</button>
                 )}

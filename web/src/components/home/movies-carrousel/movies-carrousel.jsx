@@ -2,7 +2,6 @@ import { useEffect, useState } from "react";
 import { Carousel } from "react-responsive-carousel";
 import { getMovies } from "../../../services/api.service";
 import { Link } from "react-router-dom";
-import loadingImg from "../../../assets/loaders/loader_claqueta.gif"
 
 function MoviesCarrousel() {
   const [movies, setMovies] = useState([]);
@@ -24,6 +23,7 @@ function MoviesCarrousel() {
 
   const targetDate = new Date("2024-04-15");
   const endDate = new Date("2024-05-15");
+  const premiereDate = new Date("2024-05-05")
   const moviesFiltered = movies.filter((movie) => {
     const releaseDate = new Date(movie.release_date);
 
@@ -42,14 +42,14 @@ function MoviesCarrousel() {
     <div className="">
       {isLoading ? (
         <div
-          class="flex flex-col bg-neutral-300 w-56 h-64 animate-pulse rounded-xl p-4 gap-4 mt-[50%]"
+          className="flex flex-col bg-neutral-300 w-56 h-64 animate-pulse rounded-xl p-4 gap-4 mt-[50%]"
         >
-          <div class="bg-neutral-400/50 w-full h-32 animate-pulse rounded-md"></div>
-          <div class="flex flex-col gap-2">
-            <div class="bg-neutral-400/50 w-full h-4 animate-pulse rounded-md"></div>
-            <div class="bg-neutral-400/50 w-4/5 h-4 animate-pulse rounded-md"></div>
-            <div class="bg-neutral-400/50 w-full h-4 animate-pulse rounded-md"></div>
-            <div class="bg-neutral-400/50 w-2/4 h-4 animate-pulse rounded-md"></div>
+          <div className="bg-neutral-400/50 w-full h-32 animate-pulse rounded-md"></div>
+          <div className="flex flex-col gap-2">
+            <div className="bg-neutral-400/50 w-full h-4 animate-pulse rounded-md"></div>
+            <div className="bg-neutral-400/50 w-4/5 h-4 animate-pulse rounded-md"></div>
+            <div className="bg-neutral-400/50 w-full h-4 animate-pulse rounded-md"></div>
+            <div className="bg-neutral-400/50 w-2/4 h-4 animate-pulse rounded-md"></div>
           </div>
         </div>
 
@@ -61,13 +61,15 @@ function MoviesCarrousel() {
         <div key={movie.id} className="flex flex-wrap lg:min-h-[455px] lg:max-h-[502px] lg:flex-nowrap gap-0 lg:gap-12 items-center mt-3 mb-5 rounded-3xl bg-slate-500"> 
           <div className=""> 
             <img
-              className="rounded-t-3xl lg:rounded-l-3xl lg:rounded-tr-none lg:w-96 lg:min-h-[455px] shadow-lg object-cover "
+              className=" rounded-t-3xl lg:rounded-l-3xl lg:rounded-tr-none md:w-[622px] lg:w-96 md:min-h-[455px] shadow-lg object-cover "
               src={`https://image.tmdb.org/t/p/original/${movie.poster_path}`}
               alt={`poster of ${movie.title}`}
             />
+            
           </div>
 
-          <div className="w-full mx-5 lg:mx-0 lg:w-[60%] lg:-order-none flex flex-col justify-start lg:justify-between gap-3 py-5 text-lg lg:text-lg relative"> 
+          <div className="w-full px-2 lg:mx-0 lg:w-[60%] lg:-order-none flex flex-col justify-start lg:justify-between gap-5 md:gap-8 lg:gap-8 py-5 text-lg lg:text-lg relative"> 
+            {new Date(movie.release_date) >= premiereDate ? <h3 className="md:mx-auto text-red-700 bg-red-200 rounded-xl p-2 font-bold text-3xl md:text-4xl text-center ">PRÓXIMAMENTE!</h3> : "" }
             <h3 className="text-base text-center lg:text-start lg:text-2xl uppercase text-white font-black max-w-fit lg:max-w-[50%]">{movie.title}</h3>
             <p className="line-clamp-2 text-white text-base">{movie.overview}</p>
 
