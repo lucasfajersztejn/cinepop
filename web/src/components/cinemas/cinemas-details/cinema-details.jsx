@@ -81,7 +81,7 @@ function CinemaDetails({
             </div>
             
             {visibleEdit && 
-            <div className="flex flex-col gap-2 p-3 justify-start border border-slate-500 bg-slate-800/70 rounded-xl">
+            <div className="flex flex-col justify-center  gap-2 lg:gap-5 2xl:gap-10 lg:p-5 p-3 border border-slate-500 bg-slate-800/70 rounded-xl">
               <h2 className="text-white font-semibold underline text-xl lg:text-2xl">
                 {name}
               </h2>
@@ -100,10 +100,3 @@ function CinemaDetails({
 }
 
 export default CinemaDetails;
-
-// availableHours={availableHours}
-// handleHourPicked={handleHourPicked}
-// handleTicketPrice={handleTicketPrice}
-// totalPrice={totalPrice}
-// hourSelected={hourSelected}
-// flex flex-col lg:flex-row items-center lg:gap-5 mt-3

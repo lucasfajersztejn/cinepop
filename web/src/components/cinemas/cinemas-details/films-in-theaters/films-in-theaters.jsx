@@ -234,13 +234,13 @@ function FilmsInTheaters({ movies, id, priority, web }) {
           </div>
           
           {/* Contenido de cada película */}
-          <div className="flex gap-5 w-full md:w-20 lg:flex-col lg:gap-2 justify-center items-center">
+          <div className="flex gap-5 w-full md:w-20 lg:flex-col lg:gap-2 justify-center items-center lg:ms-auto">
             {/* Entradas */}
             <div className="flex flex-col justify-center items-center">
               <span className="text-white font-medium text-lg">Entradas</span>
               <input
                 type="number"
-                className="rounded-md p-2 w-16"
+                className="rounded-md p-2 w-20"
                 min={0}
                 onChange={(event) => handleTicketPrice(filterMovie.idMovie, event)}
             />
@@ -263,8 +263,8 @@ function FilmsInTheaters({ movies, id, priority, web }) {
 
             {/* Total */}
             <div className="flex flex-col justify-center items-center">
-              <span className="text-white font-semibold text-2xl underline">Total</span>
-              <h3 className="bg-white rounded-md text-black text-2xl font-bold mt-2 p-2">
+              <span className="text-white font-semibold text-lg lg:text-2xl underline">Total</span>
+              <h3 className="bg-white rounded-md text-black w-20 text-center lg:text-2xl font-bold lg:mt-2 p-2">
               {selectedMoviePrices[filterMovie.idMovie]?.ticketPrice != null
                 ? selectedMoviePrices[filterMovie.idMovie]?.ticketPrice + (selectedMoviePrices[filterMovie.idMovie]?.comboPrice ?? 0)
                 : 0} €

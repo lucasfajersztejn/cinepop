@@ -50,7 +50,7 @@ function Map({ className, center, markers, description, image }) {
   return (
     <div
       ref={mapRef}
-      style={{ width: "100%", height: "400px" }}
+      style={{ width: "100%" }}
       className={className}
     ></div>
   );

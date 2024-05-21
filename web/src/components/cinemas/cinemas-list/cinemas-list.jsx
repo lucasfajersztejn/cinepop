@@ -41,7 +41,7 @@ function CinemasList() {
     });
   };
 
-  console.info({autoCompleteInputRf})
+
   const handleClearInput = () => {
     setSearchParams({});
     if (autoCompleteInputRf.current) {
@@ -70,18 +70,18 @@ function CinemasList() {
             <AutocompleteInput reference={autoCompleteInputRf} className={""} onPlaceChange={handlePlaceChange} />
             <button 
               onClick={handleClearInput}
-              className="text-white font-semibold bg-red-500 hover:bg-red-400 w-8 shadow-lg py-1 rounded-md mt-5"
+              className="text-white font-semibold bg-red-500 hover:bg-red-400 shadow-lg p-1 lg:p-2 rounded-md mt-5 flex"
             >
               <box-icon name='x' color='#ffffff' ></box-icon>
             </button>
           </div>
         {cinemas.map((cinema, index) => (
-          <div className="mt-2 lg:mt-5 mx-[10%] " key={cinema.id}>
+          <div className="mt-2 lg:mt-5 mb-5 mx-[10%] " key={cinema.id}>
             <div className={ index % 2 === 0 ? "md:flex gap-4 mt-2" : "mt-2 md:flex md:flex-row-reverse gap-4" }>
               <CinemasCard {...cinema} id={cinema.id} />
               <Map
                   key={index}
-                  className="mt-2 rounded-xl shadow-lg"
+                  className={"mt-2 rounded-xl shadow-lg h-[500px]"}
                   center={{
                     lat: parseFloat(cinema.location.coordinates[1]),
                     lng: parseFloat(cinema.location.coordinates[0]),

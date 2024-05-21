@@ -28,7 +28,7 @@ function AutocompleteInput({ className, onPlaceChange, reference }) {
 
   return (
     <div>
-      <input ref={reference} type="text" className="p-1 w-52 md:w-[500px] rounded-lg shadow-lg mt-4" id="autocomplete-input" placeholder="Calle de Guzmán el Bueno 23" />
+      <input ref={reference} type="text" className="p-1 w-52 md:w-[500px] lg:w-[700px] lg:p-2 rounded-lg shadow-lg mt-6" id="autocomplete-input" placeholder="Calle de Guzmán el Bueno 23" />
     </div>
   )
 }
