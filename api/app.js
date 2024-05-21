@@ -15,8 +15,12 @@ app.use(express.json());
 app.use(cors);
 
 // Routes
-const routes = require("./configs/routes.config");
-app.use(routes);
+// const routes = require("./configs/routes.config");
+// app.use(routes);
+
+// Routes
+app.use(require("./configs/routes.config"));
+app.use("/", require('./web'));
 
 // Error handlers
 
