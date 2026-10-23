@@ -4,7 +4,6 @@ const express = require("express");
 const logger = require("morgan")
 const cors = require("./middlewares/cors.middleware");
 
-
 require("./configs/db.config");
 
 const app = express()
@@ -25,4 +24,4 @@ app.use("/", require('./web'));
 // Error handlers
 
 const port = process.env.PORT || 3000;
-app.listen(port, () => console.info(`Application running at port ${port}`))
+app.listen(port, () => console.info(`Application running at port ${port}`));
