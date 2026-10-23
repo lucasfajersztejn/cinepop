@@ -3,6 +3,5 @@ api/.env
 api/.env.template
 
 web/node_modules
-web/.env
 web/.env.template
 web/dist

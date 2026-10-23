@@ -1,6 +1,6 @@
 import axios from "axios";
 
-const http = axios.create({ baseURL: "http://localhost:3000" });
+const http = axios.create({ baseURL: "http://localhost:3000" }); //"http://localhost:3000" "https://cinepop.fly.dev/"
 
 http.interceptors.request.use(function (config) {
   config.headers.authorization = `BEARER ${localStorage.getItem("token")}`;
